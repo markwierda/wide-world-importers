@@ -12,6 +12,9 @@ function connection() {
         die('Database connection failed');
     }
 
+    // Default client character set
+    mysqli_set_charset($connection, 'utf8');
+
     // Return connection
     return $connection;
 }
