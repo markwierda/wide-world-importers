@@ -1,10 +1,8 @@
 <?php
 
 require_once './functions/product.php';
-require_once './functions/category.php';
 
 $product = getProductByID();
-$categories = getCategories();
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
