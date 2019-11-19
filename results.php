@@ -6,7 +6,7 @@ $searchquery = isset($_GET['s']) ? strval($_GET['s']) : '';
 $page        = isset($_GET['p']) ? $_GET['p'] : '';
 if ($searchquery === '' || $page === '') {
     //redirect naar homepage
-    redirect("http://{$_SERVER['HTTP_HOST']}/index.php", 303);
+    redirect("index.php", 303);
 }
 
 $results = search_products($searchquery, $page);
@@ -14,11 +14,11 @@ $itemCount = search_products_itemCount($searchquery)->fetch_assoc()['itemCount']
 
 if ($results === null || $itemCount === 0) {
     //Print error?
-    redirect("http://{$_SERVER['HTTP_HOST']}/index.php");
+    redirect("index.php");
 }
 
 if (intval($page)*24-23 > $itemCount) {
-    redirect("http://{$_SERVER['HTTP_HOST']}/results.php?s={$searchquery}&p=1");
+    redirect("results.php?s={$searchquery}&p=1");
 }
 ?>
 <!-- Page Content -->
