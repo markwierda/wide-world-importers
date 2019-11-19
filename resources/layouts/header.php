@@ -15,6 +15,11 @@
 
     <!-- Custom styles for this template -->
     <link href="resources/css/shop-homepage.css" rel="stylesheet">
+    <link href="resources/css/shop-item.css" rel="stylesheet">
+    <link href="resources/css/shop-searchbar.css" rel="stylesheet">
+
+    <!-- Font Awesome for icons-->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
