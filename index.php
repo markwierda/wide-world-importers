@@ -1,10 +1,8 @@
 <?php
 
 require_once './functions/product.php';
-require_once './functions/category.php';
 
 $products = getHomepageProducts();
-$categories = getCategories();
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
@@ -14,15 +12,7 @@ $categories = getCategories();
 
     <div class="row">
 
-        <div class="col-lg-3">
-            <h1 class="my-4">Wide World Importers</h1>
-            <div class="list-group">
-                <?php foreach ($categories as $category): ?>
-                <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="list-group-item"><?php echo $category['StockGroupName']; ?></a>
-                <?php endforeach; ?>
-            </div>
 
-        </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-12">
@@ -35,7 +25,7 @@ $categories = getCategories();
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="http://placehold.it/200x450" alt="First slide"  ">
+                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="First slide"  ">
                     </div>
                     <div class="carousel-item">
                         <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="Second slide">

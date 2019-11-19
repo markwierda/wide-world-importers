@@ -1,8 +1,8 @@
 <?php
 
-require_once './functions/category.php';
+require_once './functions/product.php';
 
-$categories = getCategories();
+$product = getProductByID();
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
@@ -25,11 +25,12 @@ $categories = getCategories();
         <div class="col-lg-9">
 
             <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
-                <div class="card-body">f
-                    <h3 class="card-title">Product Name</h3>
-                    <h4>$24.99</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="<?php echo $product['StockItemName']; ?>">
+                <div class="card-body">
+                    <h3 class="card-title"><?php echo $product['StockItemName']; ?></h3>
+                    <h4>&euro; <?php echo $product['RecommendedRetailPrice']; ?></h4>
+                    <p class="card-text"><?php echo !empty($product['MarketingComments']) ? $product['MarketingComments'] : '<i>This product has no description</i>'; ?></p>
+                    <p class="card-text"><?php echo $product['QuantityOnHand']; ?> times in stock</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
                 </div>
@@ -63,18 +64,4 @@ $categories = getCategories();
 </div>
 <!-- /.container -->
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-    <!-- /.container -->
-</footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="resources/vendor/jquery/jquery.min.js"></script>
-<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-</body>
-
-</html>
+<?php require_once './resources/layouts/footer.php'; ?>
