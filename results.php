@@ -44,7 +44,10 @@ if (intval($page)*24-23 > $itemCount) {
         </div>
         <?php endwhile; ?>
     </div>
-
+    <div>
+        <button type="button" class="btn btn-primary" href="<?="http://{$_SERVER['HTTP_HOST']}/results.php?s={$searchquery}&p=".intval($page)-1?>">Previous page</button>
+        <button type="button" class="btn btn-primary" href="<?="http://{$_SERVER['HTTP_HOST']}/results.php?s={$searchquery}&p=".intval($page)+1?>">Next page</button>
+    </div>
     <!-- /.row -->
 </div>
 <!-- /.container -->
