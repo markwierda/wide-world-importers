@@ -54,7 +54,7 @@ $categories = getCategories();
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <?php foreach ($categories as $category): ?>
-                                <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="dropdown"><?php echo $category['StockGroupName']; ?></a>
+                                <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="dropdown d-block"><?php echo $category['StockGroupName']; ?></a>
                             <?php endforeach; ?>
                         </div>
                     </div>
