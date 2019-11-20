@@ -12,7 +12,6 @@ $products = getHomepageProducts();
 <div class="container">
 
     <div class="row">
-
         <!-- /.col-lg-3 -->
         <div class="col-lg-3">
             <h1 class="my-4">Categorieën</h1>
