@@ -7,7 +7,7 @@ function search_products_itemCount($search) {
         if (is_numeric($search)) {
             //suppose its a product ID
             //Prepare query
-            $query = "SELECT COUNT(*) as itemCount FROM stockitems WHERE StockItemID = ?";
+            $query = "SELECT COUNT(*) as itemCount FROM stockitems WHERE StockItemID = ?;";
 
             //Bind parameters to query
             $stmt = $conn->prepare($query);
@@ -27,7 +27,7 @@ function search_products_itemCount($search) {
             return $results;
         }
         else {
-            $query = "SELECT COUNT(*) as itemCount FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ?";
+            $query = "SELECT COUNT(*) as itemCount FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ?;";
             $search = "%{$search}%";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("ss", $search, $search);
@@ -51,7 +51,7 @@ function search_products($search, $page) {
         if (is_numeric($search)) {
             //suppose its a product ID
             //Prepare query
-            $query = "SELECT * FROM stockitems WHERE StockItemID = ? LIMIT 24 OFFSET ?";
+            $query = "SELECT * FROM stockitems WHERE StockItemID = ? LIMIT 24 OFFSET ?;";
 
             //Bind parameters to query
             $stmt = $conn->prepare($query);
@@ -71,7 +71,7 @@ function search_products($search, $page) {
             return $results;
         }
         else {
-            $query = "SELECT * FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ? LIMIT 24 OFFSET ?";
+            $query = "SELECT * FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ? LIMIT 24 OFFSET ?;";
             $search = "%{$search}%";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("ssi", $search, $search, $page);

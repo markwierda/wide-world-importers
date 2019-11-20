@@ -57,6 +57,19 @@ $categories = getCategories();
                     </a>
                 </li>
                 <li class="nav-item">
+
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categorieën
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?php foreach ($categories as $category): ?>
+                                <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="dropdown d-block"><?php echo $category['StockGroupName']; ?></a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Services</a>
                 </li>
                 <li class="nav-item">
