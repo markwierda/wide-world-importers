@@ -7,11 +7,11 @@ $products = getHomepageProducts();
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
 
+
 <!-- Page Content -->
 <div class="container">
 
     <div class="row">
-
 
         <!-- /.col-lg-3 -->
         <div class="col-lg-3">

@@ -5,6 +5,7 @@ require_once './functions/category.php';
 $categories = getCategories();
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +41,6 @@ $categories = getCategories();
 </head>
 <link rel="stylesheet" type="text/css" href="shop-header.css">
 <body>
-
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -57,19 +57,6 @@ $categories = getCategories();
                     </a>
                 </li>
                 <li class="nav-item">
-
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Categorieën
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?php foreach ($categories as $category): ?>
-                                <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="dropdown d-block"><?php echo $category['StockGroupName']; ?></a>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#">Services</a>
                 </li>
                 <li class="nav-item">
@@ -81,7 +68,6 @@ $categories = getCategories();
                     <i id="icon_shopping" class="fa fa-shopping-cart fa_custom fa-1x"></i>
                 </a>
               </ul>
-        </div>
-
+        </div
     </div>
 </nav>
