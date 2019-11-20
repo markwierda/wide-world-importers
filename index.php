@@ -14,8 +14,17 @@ $products = getHomepageProducts();
 
 
         <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <h1 class="my-4">Categorieën</h1>
+            <div class="list-group">
+                <?php foreach ($categories as $category): ?>
+                    <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="list-group-item"><?php echo $category['StockGroupName']; ?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
-        <div class="col-lg-12">
+
+        <div class="col-lg-9">
 
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">

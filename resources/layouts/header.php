@@ -25,9 +25,18 @@ $categories = getCategories();
     <link href="resources/css/shop-item.css" rel="stylesheet">
     <link href="resources/css/shop-searchbar.css" rel="stylesheet">
     <link href="resources/css/shop-header.css" rel="stylesheet">
+    <link href="resources/css/shop-header-shopincart.css" rel="stylesheet">
+
+
+
     <!-- Font Awesome for icons-->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <style type="text/css">
+        .fa_custom {
+            color: #fbfcfc;
+        }
+    </style>
 </head>
 <link rel="stylesheet" type="text/css" href="shop-header.css">
 <body>
@@ -48,23 +57,16 @@ $categories = getCategories();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Categorieën
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?php foreach ($categories as $category): ?>
-                                <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="dropdown"><?php echo $category['StockGroupName']; ?></a>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#">Services</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
+                <li><a href="#"><span class="nav-link"></span></a></li>
+
+                <a href="shopping_cart.php">
+                    <i id="icon_shopping" class="fa fa-shopping-cart fa_custom fa-1x"></i>
+                </a>
               </ul>
         </div>
 
