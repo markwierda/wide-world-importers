@@ -13,3 +13,34 @@ function getHomepageProducts() {
 
     return $result;
 }
+
+// Get product by id
+function getProductByID() {
+    if (!$_GET)
+        die('Product not found');
+
+    $id = $_GET['id'];
+
+    if (empty($id)) {
+        die('Product not found');
+    }
+
+    $conn = connection();
+
+    $stmt = $conn->prepare(
+        'SELECT I.StockItemName, i.RecommendedRetailPrice, I.MarketingComments, H.QuantityOnHand FROM stockitems I
+                JOIN stockitemholdings H ON H.StockItemID = I.StockItemID
+                WHERE I.StockItemID = ?;');
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    $stmt->close();
+    $conn->close();
+
+    if (!$result)
+        die('Product not found');
+
+    return $result[0];
+}
