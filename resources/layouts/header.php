@@ -39,7 +39,6 @@ $categories = getCategories();
         }
     </style>
 </head>
-<link rel="stylesheet" type="text/css" href="shop-header.css">
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

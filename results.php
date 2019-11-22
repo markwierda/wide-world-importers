@@ -1,7 +1,8 @@
-<?php require_once './resources/layouts/header.php';
-require_once './functions/search.php';
-require_once './functions/redirect.php';?>
 <?php
+require_once './resources/layouts/header.php';
+require_once './functions/redirect.php';
+require_once './functions/search.php';
+
 $searchquery = isset($_GET['s']) ? strval($_GET['s']) : '';
 $page        = isset($_GET['p']) ? $_GET['p'] : '';
 if ($searchquery === '' || $page === '') {

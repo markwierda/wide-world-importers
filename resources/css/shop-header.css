@@ -13,5 +13,9 @@
 }
 
 
+#searchbar {
+    padding: 0 !important;
+    width: max-content;
+}
 
 
