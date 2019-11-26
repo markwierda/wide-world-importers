@@ -16,7 +16,7 @@ function check_User_Combination($email, $password) {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->fetch_assoc()['user_found'] == 1) {
+        if (intval($result->fetch_assoc()['user_found']) == 1) {
             return true;
         } else {
             return false;
