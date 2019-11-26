@@ -7,3 +7,15 @@
 .navbar-brand {
     margin-right: 0rem;
 }
+
+#icon_shopping{
+    margin-top: 85%;
+}
+
+
+#searchbar {
+    padding: 0 !important;
+    width: max-content;
+}
+
+

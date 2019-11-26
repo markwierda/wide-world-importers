@@ -1,4 +1,5 @@
 <?php
+
 require_once './functions/search.php';
 require_once './functions/redirect.php';
 
@@ -20,9 +21,9 @@ if ($results === null || $itemCount === 0) {
 if (intval($page)*24-23 > $itemCount) {
     redirect("results.php?s={$searchquery}&p=1");
 }
-
-require_once './resources/layouts/header.php';
 ?>
+<?php require_once './resources/layouts/header.php'; ?>
+
 <!-- Page Content -->
 <div class="container">
     <?php require_once './resources/layouts/search.php';?>
@@ -34,7 +35,7 @@ require_once './resources/layouts/header.php';
                 <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="#"><?=$row['StockItemName'];?></a>
+                        <a href="product.php?id=<?=$row['StockItemID']?>"><?=$row['StockItemName'];?></a>
                     </h4>
                     <h5>&euro;<?=$row['RecommendedRetailPrice']?></h5>
                     <p class="card-text"><?=(!isset($row['MarketingComments']) || trim($row['MarketingComments'] === '')) ? "No description available for this product" : $row['MarketingComments'];?></p>
@@ -46,7 +47,10 @@ require_once './resources/layouts/header.php';
         </div>
         <?php endwhile; ?>
     </div>
-
+    <div>
+        <button type="button" class="btn btn-primary" href="<?="http://{$_SERVER['HTTP_HOST']}/results.php?s={$searchquery}&p=".intval($page)-1?>">Previous page</button>
+        <button type="button" class="btn btn-primary" href="<?="http://{$_SERVER['HTTP_HOST']}/results.php?s={$searchquery}&p=".intval($page)+1?>">Next page</button>
+    </div>
     <!-- /.row -->
 </div>
 <!-- /.container -->

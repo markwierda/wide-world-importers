@@ -7,15 +7,22 @@ $products = getHomepageProducts();
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
 
+
 <!-- Page Content -->
 <div class="container">
 
     <div class="row">
-
-
         <!-- /.col-lg-3 -->
+        <div class="col-lg-3 my-4">
+            <div class="list-group my-4">
+                <?php foreach ($categories as $category): ?>
+                    <a href="category.php?name=<?php echo $category['StockGroupName']; ?>" class="list-group-item"><?php echo $category['StockGroupName']; ?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
-        <div class="col-lg-12">
+
+        <div class="col-lg-9 my-4">
 
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
