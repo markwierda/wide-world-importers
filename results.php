@@ -1,7 +1,7 @@
-<?php require_once './resources/layouts/header.php';
-require_once './functions/search.php';
-require_once './functions/redirect.php';?>
 <?php
+require_once './functions/search.php';
+require_once './functions/redirect.php';
+
 $searchquery = isset($_GET['s']) ? strval($_GET['s']) : '';
 $page        = isset($_GET['p']) ? $_GET['p'] : '';
 if ($searchquery === '' || $page === '') {
@@ -20,6 +20,8 @@ if ($results === null || $itemCount === 0) {
 if (intval($page)*24-23 > $itemCount) {
     redirect("results.php?s={$searchquery}&p=1");
 }
+
+require_once './resources/layouts/header.php';
 ?>
 <!-- Page Content -->
 <div class="container">
