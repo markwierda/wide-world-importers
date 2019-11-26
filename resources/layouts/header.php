@@ -22,6 +22,7 @@ $categories = getCategories();
     <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="resources/css/main.css" rel="stylesheet">
     <link href="resources/css/shop-homepage.css" rel="stylesheet">
     <link href="resources/css/shop-item.css" rel="stylesheet">
     <link href="resources/css/shop-searchbar.css" rel="stylesheet">
@@ -57,10 +58,7 @@ $categories = getCategories();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="register.php">Register</a>
                 </li>
                 <li><a href="#"><span class="nav-link"></span></a></li>
 
