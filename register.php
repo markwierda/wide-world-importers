@@ -52,6 +52,7 @@
 			  			</div>
 			  		</div>
 			  	</div>
+				<?php require_once 'resources/layouts/recaptcha.php'; ?>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 

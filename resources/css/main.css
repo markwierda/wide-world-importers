@@ -7,3 +7,7 @@ footer {
     width: 100%;
     padding: 2em;
 }
+
+.g-recaptcha {
+	margin-bottom: 1em;
+}
