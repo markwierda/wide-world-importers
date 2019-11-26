@@ -1,6 +1,6 @@
 <?php
 require_once './database/connection.php';
-$db_table = "users";
+$db_table = "users"; #user tabel
 
 function check_User_Combination($email, $password) {
     global $db_table;
