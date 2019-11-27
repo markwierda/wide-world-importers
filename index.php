@@ -1,5 +1,4 @@
 <?php
-
 require_once './functions/product.php';
 
 $products = getHomepageProducts();

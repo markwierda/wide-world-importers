@@ -1,5 +1,4 @@
 <?php
-
 require_once './database/connection.php';
 
 $db_table = "wwi_users"; #user tabel
@@ -7,25 +6,47 @@ $db_table = "wwi_users"; #user tabel
 function check_User_Combination($email, $password) {
     global $db_table;
 
-    //hash password
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
     try {
         $conn = connection();
-        $query = "SELECT COUNT(*) as user_found FROM $db_table WHERE email = ? AND password = ?";
+        $query = "SELECT password FROM $db_table WHERE email = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $email, $password);
+        $stmt->bind_param("s", $email);
         $stmt->execute();
-        $result = $stmt->get_result();
+        $result = $stmt->get_result()->fetch_assoc()['password'];
 
-        if ($result->fetch_assoc()['user_found'] == 1) {
-            return true;
-        } else {
+        if ($stmt->errno > 0) {
             return false;
+        }
+        else {
+            try {
+                if (password_verify($password, $result)) {
+                    return true;
+                }
+            }
+            catch (Exception $e) {
+                return false;
+            }
         }
     }
     catch (Exception $e){
         return false;
+    }
+}
+
+function get_uid($email) {
+    global $db_table;
+    $conn = connection();
+    $query = "SELECT id FROM $db_table WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_assoc()['id'];
+
+    if ($stmt->errno > 0) {
+        return false;
+    } else {
+        return $result;
     }
 }
 
