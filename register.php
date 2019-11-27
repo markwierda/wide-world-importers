@@ -92,8 +92,6 @@ if ($_POST) {
     </div>
     <!-- /.row -->
 </main>
-
-</div>
 <!-- /.container -->
 
 <?php require_once './resources/layouts/footer.php'; ?>

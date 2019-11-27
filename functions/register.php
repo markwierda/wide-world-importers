@@ -1,5 +1,5 @@
 <?php
-
+require_once './functions/sessions.php';
 require_once './database/connection.php';
 require_once './functions/recaptcha.php';
 require_once './functions/validate_user.php';
@@ -29,7 +29,9 @@ function validateRegistration($form) {
 			return $errors;
 
         create_User($form);
-
+        if (get_uid($form['email']) !== False) {
+            createSession(get_uid($form['email']));
+        }
         return true;
 	}
 

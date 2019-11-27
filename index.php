@@ -1,5 +1,4 @@
 <?php
-
 require_once './functions/product.php';
 
 $products = getHomepageProducts();
@@ -61,7 +60,7 @@ $products = getHomepageProducts();
                             <h4 class="card-title">
                                 <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
                             </h4>
-                            <h5>&euro; <?php echo $product['RecommendedRetailPrice']; ?></h5>
+                            <h5>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h5>
                             <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                         </div>
                         <div class="card-footer">
