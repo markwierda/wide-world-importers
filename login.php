@@ -28,7 +28,7 @@ require_once  './functions/login.php';?>
                     <a class="underlineHover" href="#">Forgot Password?</a>
                 </div>
                 <div class="col-12 col-md-6">
-                    <a class="underlineHover" href="#">Register</a>
+                    <a class="underlineHover" href="register.php">Register</a>
                 </div>
             </div>
         </div>
