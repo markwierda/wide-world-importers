@@ -21,6 +21,7 @@ $categories = getCategories();
     <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="resources/css/shop-login.css" rel="stylesheet">
     <link href="resources/css/main.css" rel="stylesheet">
     <link href="resources/css/shop-homepage.css" rel="stylesheet">
     <link href="resources/css/shop-item.css" rel="stylesheet">
