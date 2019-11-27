@@ -2,7 +2,9 @@
 
 require_once './database/connection.php';
 require_once './functions/recaptcha.php';
+require_once './functions/validate_user.php';
 
+// Validate user input from registration form and create user when no error
 function validateRegistration($form) {
 	$errors = [];
 
@@ -14,13 +16,47 @@ function validateRegistration($form) {
 			}
 		}
 
-		if (!empty($errors))
+        if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL))
+            $errors['email'] = 'The specified <b>e-mail address</b> is not a valid e-mail address, please try again.';
+
+        if (checkIfUserAlreadyExist($form['email']))
+            $errors['email'] = 'The specified <b>e-mail address</b> is already registered, try a different e-mail address.';
+
+        if ($form['password'] !== $form['confirm_password'])
+            $errors['password'] = 'The specified <b>passwords</b> do not match, please try again.';
+
+        if (!empty($errors))
 			return $errors;
 
-		return true;
+        create_User($form);
+
+        return true;
 	}
 
-	$errors['recaptcha'] = 'ReCAPTCHA verification failed, please try again.';
+	$errors['recaptcha'] = '<b>ReCAPTCHA</b> verification failed, please try again.';
 
 	return $errors;
+}
+
+// Check if there is already an user with the given email
+function checkIfUserAlreadyExist($email) {
+    if (empty($email))
+        return false;
+
+    $conn = connection();
+
+    $stmt = $conn->prepare(
+        'SELECT id FROM wwi_users WHERE email = ?');
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    $stmt->close();
+    $conn->close();
+
+    if (!$result)
+        return false;
+
+    return true;
 }

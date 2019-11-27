@@ -4,10 +4,14 @@ require_once './functions/register.php';
 
 if ($_POST) {
 	$response = validateRegistration($_POST);
+	$success = null;
 
-	if ($response && is_array($response)); {
-		$errors = $response;
-	}
+	if ($response && is_array($response)) {
+        $errors = $response;
+    } else {
+        $success = true;
+        unset($_POST);
+    }
 }
 
 ?>
@@ -23,7 +27,11 @@ if ($_POST) {
 
         	<h1 class="display-4 my-4">Register</h1>
 
-        	<?php if (isset($errors) && is_array($errors)): ?>
+            <?php if ($success): ?>
+                <div class="alert alert-success" role="alert">
+                    Your account has been successfully registered.
+                </div>
+        	<?php elseif (isset($errors) && is_array($errors)): ?>
         	<div class="alert alert-danger" role="alert">
         		<?php foreach ($errors as $error): ?>
   				<span><?php echo $error; ?></span>
@@ -33,8 +41,8 @@ if ($_POST) {
 
         	<form method="POST" action="register.php">
   				<div class="form-group">
-	    			<label for="name">Name</label>
-				    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required autofocus value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+	    			<label for="name">Full Name</label>
+				    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required autofocus value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
 			  	</div>
 	  			<div class="form-group">
 	    			<label for="adress">Address</label>
