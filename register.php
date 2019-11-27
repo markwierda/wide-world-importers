@@ -2,6 +2,8 @@
 
 require_once './functions/register.php';
 
+$success = null;
+
 if ($_POST) {
 	$response = validateRegistration($_POST);
 	$success = null;
