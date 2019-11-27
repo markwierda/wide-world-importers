@@ -57,7 +57,7 @@ $categories = getCategories();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
+                    <a class="nav-link" href="http://localhost/wide-world-importers/login.php">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
