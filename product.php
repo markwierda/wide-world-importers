@@ -27,7 +27,7 @@ $product = getProductByID();
                 <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="<?php echo $product['StockItemName']; ?>">
                 <div class="card-body">
                     <h3 class="card-title"><?php echo $product['StockItemName']; ?></h3>
-                    <h4>&euro; <?php echo $product['RecommendedRetailPrice']; ?></h4>
+                    <h4>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h4>
                     <p class="card-text"><?php echo !empty($product['MarketingComments']) ? $product['MarketingComments'] : '<i>This product has no description</i>'; ?></p>
                     <p class="card-text"><?php echo $product['QuantityOnHand']; ?> times in stock</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
