@@ -1,0 +1,17 @@
+main {
+	min-height: calc(100vh - 144px);
+}
+
+footer {
+    bottom: 0;
+    width: 100%;
+    padding: 2em;
+}
+
+.g-recaptcha {
+	margin-bottom: 1em;
+}
+
+.alert-danger span {
+	display: block;
+}
