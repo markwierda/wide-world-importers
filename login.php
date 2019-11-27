@@ -17,7 +17,7 @@ require_once  './functions/login.php';?>
         <!-- Login Form -->
         <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
             <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
             <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
 
