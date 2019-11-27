@@ -1,5 +1,5 @@
 <?php
-
+require_once './functions/sessions.php'; //Contains session_start();
 require_once './functions/category.php';
 
 $categories = getCategories();
