@@ -11,3 +11,7 @@ footer {
 .g-recaptcha {
 	margin-bottom: 1em;
 }
+
+.alert-danger span {
+	display: block;
+}
