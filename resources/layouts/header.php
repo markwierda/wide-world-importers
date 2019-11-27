@@ -1,7 +1,6 @@
 <?php
 require_once './functions/sessions.php'; //Contains session_start();
 require_once './functions/category.php';
-
 $categories = getCategories();
 
 ?>
@@ -57,12 +56,18 @@ $categories = getCategories();
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.php">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="register.php">Register</a>
-                </li>
+                <?php if (validateSession() === False):?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.php">Register</a>
+                    </li>
+                <?php else:?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
+                    </li>
+                <?php endif;?>
                 <li><a href="#"><span class="nav-link"></span></a></li>
 
                 <a href="shopping_cart.php">
