@@ -58,6 +58,9 @@ $categories = getCategories();
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="register.php">Register</a>
                 </li>
                 <li><a href="#"><span class="nav-link"></span></a></li>
