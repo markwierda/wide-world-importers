@@ -3,13 +3,17 @@ require_once './functions/validate_user.php';
 require_once './functions/redirect.php';
 require_once './functions/sessions.php'; ?>
 <?php
+
+if (isset($_SESSION['user_id']))
+    redirect('index.php');
+
 $errormsg = "";
 if (isset($_POST['email']) && isset($_POST['password'])) {
     if (check_User_Combination($_POST['email'], $_POST['password'])) {
         $uid = get_uid($_POST['email']);
         if ($uid !== False) {
             createSession($uid);
-            redirect("http://{$_SERVER['HTTP_HOST']}/index.php");
+            redirect('index.php');
         }
     } else {
         //Handle error message?
