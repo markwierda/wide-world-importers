@@ -1,6 +1,8 @@
 <?php
+
 require_once './database/connection.php';
-$db_table = "users"; #user tabel
+
+$db_table = "wwi_users"; #user tabel
 
 function check_User_Combination($email, $password) {
     global $db_table;
@@ -27,16 +29,18 @@ function check_User_Combination($email, $password) {
     }
 }
 
-function create_User($email, $password) {
+function create_User($user) {
     global $db_table;
 
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $password = password_hash($user['password'], PASSWORD_DEFAULT);
+
     try {
         $conn = connection();
-        $query = "INSERT INTO $db_table (email, password) VALUES (?, ?)";
+        $query = "INSERT INTO $db_table (name, address, city, postal, email, password) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $email, $password);
+        $stmt->bind_param("ssssss", $user['name'], $user['address'], $user['city'], $user['postal'], $user['email'], $password);
         $stmt->execute();
+
         if ($stmt->errno > 0) {
             return false;
         } else {
@@ -46,7 +50,4 @@ function create_User($email, $password) {
     catch (Exception $e) {
         return false;
     }
-    //$result = $stmt->get_result()->fetch_assoc();
-    //$result = $stmt->get_result
 }
-?>
