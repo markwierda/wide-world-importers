@@ -42,6 +42,7 @@ require_once './resources/layouts/header.php';
                 <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
                     <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email" required>
                     <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
+                    <?php require_once 'resources/layouts/recaptcha.php'; ?>
                     <input type="submit" class="fadeIn fourth" value="Log In">
                 </form>
 
