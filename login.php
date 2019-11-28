@@ -8,17 +8,23 @@ if (isset($_SESSION['user_id']))
     redirect('index.php');
 
 $errormsg = "";
-if (isset($_POST['email']) && isset($_POST['password'])) {
-    if (check_User_Combination($_POST['email'], $_POST['password'])) {
-        $uid = get_uid($_POST['email']);
-        if ($uid !== False) {
-            createSession($uid);
-            $_SESSION['ALERT_SUCCESS'] = 'You have been successfully logged in.';
-            redirect('index.php');
+if ($_POST) {
+    if (isValidRecaptchaResponse($_POST['g-recaptcha-response'])) {
+        if (isset($_POST['email']) && isset($_POST['password'])) {
+            if (check_User_Combination($_POST['email'], $_POST['password'])) {
+                $uid = get_uid($_POST['email']);
+                if ($uid !== False) {
+                    createSession($uid);
+                    $_SESSION['ALERT_SUCCESS'] = 'You have been successfully logged in.';
+                    redirect('index.php');
+                }
+            } else {
+                //Handle error message?
+                $errormsg = "Invalid combination, please try again.";
+            }
         }
     } else {
-        //Handle error message?
-        $errormsg = "Invalid combination, please try again.";
+        $errormsg = '<b>ReCAPTCHA</b> verification failed, please try again.';
     }
 }
 
@@ -41,7 +47,7 @@ require_once './resources/layouts/header.php';
                 <?php endif; ?>
 
                 <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
-                    <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email" required>
+                    <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email" required value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
                     <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
                     <?php require_once 'resources/layouts/recaptcha.php'; ?>
                     <input type="submit" class="fadeIn fourth" value="Log In">
