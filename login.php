@@ -39,8 +39,8 @@ require_once './resources/layouts/header.php';
                 </div>
 
                 <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
-                    <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email">
-                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+                    <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email" required>
+                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
                     <input type="submit" class="fadeIn fourth" value="Log In">
                 </form>
 
