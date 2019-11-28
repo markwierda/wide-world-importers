@@ -29,7 +29,7 @@ $product = getProductByID();
                     <h3 class="card-title"><?php echo $product['StockItemName']; ?></h3>
                     <h4>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h4>
                     <p class="card-text"><?php echo !empty($product['MarketingComments']) ? $product['MarketingComments'] : '<i>This product has no description</i>'; ?></p>
-                    <p class="card-text"><?php echo $product['QuantityOnHand']; ?> times in stock</p>
+                    <p class="card-text"><?php echo ($product['QuantityOnHand'] > 25) ? "<a class='text-success'>In stock</a>" : "<a class='text-danger'>{$product['QuantityOnHand']} Left</a>"?></p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
                 </div>

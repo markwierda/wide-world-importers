@@ -43,19 +43,22 @@ function search_products_itemCount($search) {
     return null;
 }
 
-function search_products($search, $page) {
+function search_products($search, $page, $amount=24) {
     if (!empty($search) && isset($page)) {
         $conn = connection();
-        $page = (intval($page)-1) * 24;
+        if(!is_numeric($amount)) {
+            return null;
+        }
+        $page = (intval($page)-1) * $amount;
 
         if (is_numeric($search)) {
             //suppose its a product ID
             //Prepare query
-            $query = "SELECT * FROM stockitems WHERE StockItemID = ? LIMIT 24 OFFSET ?;";
+            $query = "SELECT * FROM stockitems WHERE StockItemID = ? LIMIT ? OFFSET ?;";
 
             //Bind parameters to query
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("ii", $search, $page);
+            $stmt->bind_param("iii", $search,$amount, $page);
 
             //execute statement
             $stmt->execute();
@@ -71,10 +74,10 @@ function search_products($search, $page) {
             return $results;
         }
         else {
-            $query = "SELECT * FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ? LIMIT 24 OFFSET ?;";
+            $query = "SELECT * FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ? LIMIT ? OFFSET ?;";
             $search = "%{$search}%";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("ssi", $search, $search, $page);
+            $stmt->bind_param("ssii", $search, $search, $amount, $page);
             $stmt->execute();
 
             $results = $stmt->get_result();
