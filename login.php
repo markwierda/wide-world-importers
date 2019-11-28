@@ -13,6 +13,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $uid = get_uid($_POST['email']);
         if ($uid !== False) {
             createSession($uid);
+            $_SESSION['ALERT_SUCCESS'] = 'You have been successfully logged in.';
             redirect('index.php');
         }
     } else {

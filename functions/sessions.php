@@ -7,10 +7,8 @@ function createSession($uid) {
     $_SESSION['user_id'] = $uid;
 }
 
-function destroySession() {
-    session_unset('user_id');
-    session_unset();
-    session_destroy();
+function logout() {
+    unset($_SESSION['user_id']);
 }
 
 function validateSession() {
