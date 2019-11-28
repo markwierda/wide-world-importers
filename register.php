@@ -27,7 +27,7 @@ if ($_POST) {
 
     <div class="row justify-content-center">
 
-        <div class="col-lg-10">
+        <div class="col-lg-8">
 
         	<h1 class="display-4 my-4">Register</h1>
 
@@ -42,41 +42,42 @@ if ($_POST) {
         	<form method="POST" action="register.php">
   				<div class="form-group">
 	    			<label for="name">Full Name</label>
-				    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required autofocus value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+				    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required maxlength="45" autofocus value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
 			  	</div>
 	  			<div class="form-group">
 	    			<label for="adress">Address</label>
-				    <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required value="<?php echo isset($_POST['address']) ? $_POST['address'] : ''; ?>">
+				    <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required maxlength="45" value="<?php echo isset($_POST['address']) ? $_POST['address'] : ''; ?>">
 				</div>
 			  	<div class="row">
 			  		<div class="col-md-6">
 					  	<div class="form-group">
 			    			<label for="city">City</label>
-						    <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required value="<?php echo isset($_POST['city']) ? $_POST['city'] : ''; ?>">
+						    <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required maxlength="45" value="<?php echo isset($_POST['city']) ? $_POST['city'] : ''; ?>">
 					  	</div>
 					</div>
 			  		<div class="col-md-6">
 					  	<div class="form-group">
 			    			<label for="postal">Postal Code</label>
-						    <input type="text" class="form-control" id="postal" name="postal" placeholder="Enter your postal code" required value="<?php echo isset($_POST['city']) ? $_POST['city'] : ''; ?>">
+						    <input type="text" class="form-control" id="postal" name="postal" placeholder="Enter your postal code" required maxlength="45" value="<?php echo isset($_POST['city']) ? $_POST['city'] : ''; ?>">
 					  	</div>
 			  		</div>
 			  	</div>
 			  	<div class="form-group">
 	    			<label for="email">E-mail address</label>
-				    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your e-mail address" required value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+				    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your e-mail address" required maxlength="45" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
 			  	</div>
 			  	<div class="row">
 			  		<div class="col-md-6">
 				  		<div class="form-group">
 			    			<label for="password">Password</label>
-						    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-					  	</div>
+						    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" placeholder="Enter your password" required maxlength="45">
+                            <small id="passwordHelp" class="form-text text-muted">Password must be at least 8 characters long, contains at least one capital letter, contains at least one number and contains at least one special character.</small>
+                        </div>
 			  		</div>
 			  		<div class="col">
 	  				  	<div class="form-group">
 			    			<label for="confirm_password">Confirm Password</label>
-						    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+						    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required maxlength="45">
 			  			</div>
 			  		</div>
 			  	</div>
