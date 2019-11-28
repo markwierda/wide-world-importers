@@ -1,13 +1,6 @@
 <?php
-$user_logged_in = False;
-
 if(!isset($_SESSION)) {
     session_start();
-}
-else {
-    if (isset($_SESSION['user_id'])) {
-        $user_logged_in = True;
-    }
 }
 
 function createSession($uid) {
