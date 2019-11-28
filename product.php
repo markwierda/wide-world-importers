@@ -8,7 +8,7 @@ if ($_POST) {
     addToCart($_POST['productID']);
 }
 
-$product = getProductByID();
+$product = getProductByID($_GET['id']);
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>

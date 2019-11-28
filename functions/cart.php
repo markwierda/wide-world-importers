@@ -3,6 +3,7 @@
 session_start();
 
 require_once './database/connection.php';
+require_once './functions/product.php';
 
 function addToCart($product) {
     $product = intval($product);
@@ -23,7 +24,16 @@ function getCart() {
     if (!isset($_SESSION['CART']))
         return false;
 
-    return $_SESSION['CART'];
+    $cart = [];
+
+    foreach ($_SESSION['CART'] as $id => $quantity) {
+        $product = getProductByID($id);
+        $product['quantity'] = $quantity;
+
+        array_push($cart, $product);
+    }
+
+    return $cart;
 }
 
 function calculateEndPrice($productIDs) {

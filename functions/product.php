@@ -15,15 +15,9 @@ function getHomepageProducts() {
 }
 
 // Get product by id
-function getProductByID() {
-    if (!$_GET)
+function getProductByID($id) {
+    if (!$id)
         die('Product not found');
-
-    $id = $_GET['id'];
-
-    if (empty($id)) {
-        die('Product not found');
-    }
 
     $conn = connection();
 
