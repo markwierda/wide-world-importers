@@ -18,7 +18,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         }
     } else {
         //Handle error message?
-        $errormsg = "Invalid combination";
+        $errormsg = "Invalid combination, please try again.";
     }
 }
 
@@ -27,11 +27,6 @@ require_once './resources/layouts/header.php';
 
 <main id="login">
     <div class="container">
-        <?php if (!empty($errormsg)): ?>
-            <div class="alert alert-danger" role="alert">
-                <span><?php echo $errormsg; ?></span>
-            </div>
-        <?php endif; ?>
 
         <div class="row justify-content-center">
             <div id="formContent" class="col-lg-12">
@@ -39,9 +34,16 @@ require_once './resources/layouts/header.php';
                     <h1>Login</h1>
                 </div>
 
+                <?php if (!empty($errormsg)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <span><?php echo $errormsg; ?></span>
+                    </div>
+                <?php endif; ?>
+
                 <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
                     <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email" required>
                     <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
+                    <?php require_once 'resources/layouts/recaptcha.php'; ?>
                     <input type="submit" class="fadeIn fourth" value="Log In">
                 </form>
 
