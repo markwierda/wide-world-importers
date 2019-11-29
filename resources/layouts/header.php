@@ -44,7 +44,7 @@ $categories = getCategories();
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#"></a>
-        <a href="http://localhost/wide-world-importers/"><img src="resources\IMG\wide-world-importers-logo-small.png" style="max-height: 60px; padding-right: 100px" alt=""></a>
+        <a href="http://localhost"><img src="resources\IMG\wide-world-importers-logo-small.png" style="max-height: 60px; padding-right: 100px" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,7 +52,7 @@ $categories = getCategories();
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost/wide-world-importers/">Home
+                    <a class="nav-link" href="http://localhost">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -70,7 +70,7 @@ $categories = getCategories();
                 <?php endif;?>
                 <li><a href="#"><span class="nav-link"></span></a></li>
 
-                <a href="shopping_cart.php">
+                <a href="cart.php">
                     <i id="icon_shopping" class="fa fa-shopping-cart fa_custom fa-1x"></i>
                 </a>
               </ul>
