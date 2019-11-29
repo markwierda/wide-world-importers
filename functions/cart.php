@@ -1,7 +1,6 @@
 <?php
 
-session_start();
-
+require_once './functions/sessions.php';
 require_once './database/connection.php';
 require_once './functions/product.php';
 
@@ -29,7 +28,7 @@ function getCart() {
     foreach ($_SESSION['CART'] as $id => $quantity) {
         $product = getProductByID($id);
         $product['quantity'] = $quantity;
-
+        $product['total'] = $quantity*$product['RecommendedRetailPrice'];
         array_push($cart, $product);
     }
 
@@ -42,12 +41,38 @@ function calculateEndPrice($productIDs) {
     $totaalBTW = 0;
     $totaalPrijs = 0;
     foreach ($productIDs as $productID) {
-        $totaalBTW += calculateBTW($productID);
+        $totaalBTW += calculateTAX($productID);
         $totaalPrijs += getRecommendedRetailPrice($productID);
     }
-    $eindPrijs = $totaalPrijs + $totaalBTW;
+    $totaalBTW = round($totaalBTW, 2);
+    $totaalPrijs = round($totaalPrijs, 2);
+    $eindPrijs = round(($totaalPrijs + $totaalBTW), 2);
 
     return ['BTW' => $totaalBTW, 'EXCL' => $totaalPrijs, 'INCL' => $eindPrijs];
+}
+
+function calculateTAX($productID) {
+    try {
+        $conn = connection();
+        $stmt = $conn->prepare("SELECT TaxRate, UnitPrice, RecommendedRetailPrice FROM stockitems WHERE StockItemID = ?;");
+        $stmt->bind_param("i", $productID);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        $btwPercentage = doubleval($result['TaxRate']) / 100;
+        //Er van uitgaan dat RecommendedRetailPrice excl BTW is
+        $recommendedRetailPriceExcl = doubleval($result['RecommendedRetailPrice']);
+
+        //Er van uitgaan dat RecommendedRetailPrice Incl BTW is
+        //$recommendedRetailPriceIncl = doubleval($result['RecommendedRetailPrice']);
+        //$btw = $recommendedRetailPriceIncl - $recommendedRetailPriceIncl / ($btwPercentage+1);
+
+        $btw = $recommendedRetailPriceExcl * $btwPercentage;
+        return $btw;
+    }
+    catch (Exception $e) {
+        return null;
+    }
 }
 
 function getRecommendedRetailPrice($productID) {
@@ -59,30 +84,6 @@ function getRecommendedRetailPrice($productID) {
         $result = $stmt->get_result()->fetch_assoc()['RecommendedRetailPrice'];
         return $result;
     }catch (Exception $e) {
-        return null;
-    }
-}
-
-function calculateBTW($productID) {
-    try {
-        $conn = connection();
-        $stmt = $conn->prepare("SELECT TaxRate, UnitPrice, RecommendedRetailPrice FROM stockitems WHERE StockItemID = ?;");
-        $stmt->bind_param("i", $productID);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-
-        $btwPercentage = doubleval($result['TaxRate']) / 100;
-        //Er van uitgaan dat RecommendedRetailPrice excl BTW is
-        $recommendedRetailPriceExcl = doubleval(['RecommendedRetailPrice']);
-
-        //Er van uitgaan dat RecommendedRetailPrice Incl BTW is
-        //$recommendedRetailPriceIncl = doubleval($result['RecommendedRetailPrice']);
-        //$btw = $recommendedRetailPriceIncl - $recommendedRetailPriceIncl / ($btwPercentage+1);
-
-        $btw = $recommendedRetailPriceExcl * $btwPercentage;
-        return $btw;
-    }
-    catch (Exception $e) {
         return null;
     }
 }

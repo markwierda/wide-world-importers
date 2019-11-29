@@ -14,7 +14,7 @@ function berekenEindprijs($productIDs) {
 
     return ['BTW' => $totaalBTW, 'EXCL' => $totaalPrijs, 'INCL' => $eindPrijs];
 }
-
+/*
 function getRecommendedRetailPrice($productID) {
     try {
         $conn = connection();
@@ -27,7 +27,7 @@ function getRecommendedRetailPrice($productID) {
         return null;
     }
 }
-
+*/
 function berekenBTW($productID) {
     try {
         $conn = connection();
