@@ -1,18 +1,20 @@
 <?php
 
+session_start();
+
 require_once './functions/register.php';
 
-$success = null;
+if (isset($_SESSION['user_id']))
+    header('Location: index.php');
 
 if ($_POST) {
 	$response = validateRegistration($_POST);
-	$success = null;
 
 	if ($response && is_array($response)) {
         $errors = $response;
     } else {
-        $success = true;
-        unset($_POST);
+        $_SESSION['ALERT_SUCCESS'] = 'Your account has been successfully registered.';
+        header('Location: index.php');
     }
 }
 
@@ -29,11 +31,7 @@ if ($_POST) {
 
         	<h1 class="display-4 my-4">Register</h1>
 
-            <?php if ($success): ?>
-                <div class="alert alert-success" role="alert">
-                    Your account has been successfully registered.
-                </div>
-        	<?php elseif (isset($errors) && is_array($errors)): ?>
+        	<?php if (isset($errors) && is_array($errors)): ?>
         	<div class="alert alert-danger" role="alert">
         		<?php foreach ($errors as $error): ?>
   				<span><?php echo $error; ?></span>

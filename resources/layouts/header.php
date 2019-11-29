@@ -21,7 +21,7 @@ $categories = getCategories();
     <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <?php if (strstr($_SERVER['REQUEST_URI'], 'login.php')): ?>
+    <?php if (!strstr($_SERVER['REQUEST_URI'], 'register.php')): ?>
     <link href="resources/css/shop-login.css" rel="stylesheet">
     <?php endif; ?>
     <link href="resources/css/main.css" rel="stylesheet">
@@ -52,7 +52,7 @@ $categories = getCategories();
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost/wide-world-importers/">Home
+                    <a class="nav-link" href="index.php">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
