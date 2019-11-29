@@ -23,6 +23,14 @@ $products = getHomepageProducts();
 
         <div class="col-lg-9 my-4">
 
+            <?php if(isset($_SESSION['ALERT_SUCCESS'])): ?>
+            <div class="alert alert-success alert-dismissible my-4" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <?php echo $_SESSION['ALERT_SUCCESS']; ?>
+            </div>
+            <?php unset($_SESSION['ALERT_SUCCESS']); ?>
+            <?php endif; ?>
+
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
