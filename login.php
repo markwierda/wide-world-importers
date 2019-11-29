@@ -22,6 +22,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 }
 
 require_once './resources/layouts/header.php';
+
 ?>
 
 <main id="login">
