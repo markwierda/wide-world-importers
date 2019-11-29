@@ -1,13 +1,48 @@
 <?php
-require_once './database/connection.php';
 
-function berekenEindprijs($productIDs) {
+session_start();
+
+require_once './database/connection.php';
+require_once './functions/product.php';
+
+function addToCart($product) {
+    $product = intval($product);
+
+    if (!isset($_SESSION['CART']))
+        $_SESSION['CART'] = [];
+
+    if (!isset($_SESSION['CART'][$product]))
+        $_SESSION['CART'][$product] = 1;
+    else
+        $_SESSION['CART'][$product]++;
+
+    $_SESSION['ALERT_SUCCESS'] = 'This product has been added to your shopping cart.';
+    header('Location: product.php?id=' . $product);
+}
+
+function getCart() {
+    if (!isset($_SESSION['CART']))
+        return false;
+
+    $cart = [];
+
+    foreach ($_SESSION['CART'] as $id => $quantity) {
+        $product = getProductByID($id);
+        $product['quantity'] = $quantity;
+
+        array_push($cart, $product);
+    }
+
+    return $cart;
+}
+
+function calculateEndPrice($productIDs) {
     if (!is_array($productIDs)) return null;
 
     $totaalBTW = 0;
     $totaalPrijs = 0;
     foreach ($productIDs as $productID) {
-        $totaalBTW += berekenBTW($productID);
+        $totaalBTW += calculateBTW($productID);
         $totaalPrijs += getRecommendedRetailPrice($productID);
     }
     $eindPrijs = $totaalPrijs + $totaalBTW;
@@ -28,7 +63,7 @@ function getRecommendedRetailPrice($productID) {
     }
 }
 
-function berekenBTW($productID) {
+function calculateBTW($productID) {
     try {
         $conn = connection();
         $stmt = $conn->prepare("SELECT TaxRate, UnitPrice, RecommendedRetailPrice FROM stockitems WHERE StockItemID = ?;");

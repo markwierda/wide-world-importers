@@ -1,5 +1,6 @@
 <?php
 require_once './database/connection.php';
+require_once './functions/recaptcha.php';
 
 $db_table = "wwi_users"; #user tabel
 
