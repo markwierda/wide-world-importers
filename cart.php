@@ -45,9 +45,8 @@ $productIDs = [];
 
 
 
-            <a href="http://localhost">  <button class="homepage" type="button">Homepage</button> </div> </a>
-            <button href="" type= "submit" class="btn btn-success float-md-righ">CHECKOUT</button>
-
+        <a href="http://localhost">  <button type="submit" class="btn btn-primary float-left">Homepage</button>
+            <button type="submit" class="btn btn-primary float-right">Checkout</button> </a>
     </div>
 </div>
 
