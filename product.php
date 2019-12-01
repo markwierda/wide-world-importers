@@ -72,8 +72,7 @@ $product = getProductByID($_GET['id']);
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
                     <hr>
-<<<<<<< HEAD
-                    <a href="#" class="btn btn-success">Leave a Review</a>
+
                     <form action="thispage.php" method="post" accept-charset="utf-8">
                         <fieldset><legend>Review This Product</legend>
                             <p><label for="rating">Rating</label>
@@ -89,9 +88,6 @@ $product = getProductByID($_GET['id']);
                             <input type="hidden" name="product_id" value="actual_product_id" id="product_id">
                         </fieldset>
                     </form>
-=======
-                    <a href="#" class="btn btn-primary">Leave a Review</a>
->>>>>>> 9460c79097e953c7014278de39be525085cdf3d7
                 </div>
             </div>
             <!-- /.card -->
