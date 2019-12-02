@@ -29,6 +29,8 @@ function getCart() {
         $product = getProductByID($id);
         $product['quantity'] = $quantity;
         $product['total'] = $quantity*$product['RecommendedRetailPrice'];
+        $product['total'] = number_format($product['total'], 2);
+
         array_push($cart, $product);
     }
 
@@ -44,9 +46,12 @@ function calculateEndPrice($productIDs) {
         $totaalBTW += calculateTAX($productID);
         $totaalPrijs += getRecommendedRetailPrice($productID);
     }
-    $totaalBTW = round($totaalBTW, 2);
-    $totaalPrijs = round($totaalPrijs, 2);
-    $eindPrijs = round(($totaalPrijs + $totaalBTW), 2);
+
+    $eindPrijs = $totaalPrijs + $totaalBTW;
+
+    $totaalBTW = number_format($totaalBTW, 2);
+    $totaalPrijs = number_format($totaalPrijs, 2);
+    $eindPrijs = number_format($eindPrijs, 2);
 
     return ['BTW' => $totaalBTW, 'EXCL' => $totaalPrijs, 'INCL' => $eindPrijs];
 }
