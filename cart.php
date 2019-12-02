@@ -13,16 +13,16 @@ $productIDs = [];
         <link href="resources/css/cart.css" rel="stylesheet">
         <?php if ($card !== False):?>
         <div class="row">
-            <div class="col-3">Productnaam</div>
-            <div class="col-3">Prijs</div>
-            <div class="col-3">Aantal</div>
-            <div class="col-3">Totaal</div>
+            <div class="col-3">Product name</div>
+            <div class="col-3">Price</div>
+            <div class="col-3">Amount</div>
+            <div class="col-3">Total</div>
             <?php foreach ($card as $item):?>
                 <?php for ($i = 0; $i < $item['quantity']; $i++) { array_push($productIDs, $item['StockItemID']); }?>
                 <div class="col-3"><?=$item['StockItemName'];?></div>
-                <div class="col-3">&euro;<?=$item['RecommendedRetailPrice'];?></div>
+                <div class="col-3">&euro; <?=str_replace('.', ',', $item['RecommendedRetailPrice']);?></div>
                 <div class="col-3"><?=$item['quantity'];?></div>
-                <div class="col-3"><?=$item['total'];?></div>
+                <div class="col-3">&euro; <?=str_replace('.', ',', $item['total']);?></div>
             <?php endforeach;?>
             <?php $end = calculateEndPrice($productIDs);?>
         </div>
@@ -32,14 +32,14 @@ $productIDs = [];
             <div class="col-3"></div>
             <div class="col-3"></div>
             <div class="col-3">
-                BTW<br /><?=$end['BTW'];?><hr/>
-                Total price excl<br />&euro;<?=$end['EXCL'];?><hr />
-                Total price incl<br/>&euro;<?=$end['INCL'];?>
+                TAX<br />&euro; <?=str_replace('.', ',', $end['BTW']);?><hr/>
+                Total price excl<br />&euro; <?=str_replace('.', ',', $end['EXCL']);?><hr />
+                Total price incl<br/>&euro; <?=str_replace('.', ',', $end['INCL']);?>
             </div>
         </div>
         <?php else:?>
         <div>
-            Er are 0 products in winkelwagen
+            There are 0 products in your shopping cart
         </div>
         <?php endif;?>
 
