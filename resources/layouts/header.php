@@ -1,34 +1,31 @@
 <?php
+
 require_once './functions/sessions.php'; //Contains session_start();
+require_once './functions/title.php';
 require_once './functions/category.php';
+
+if (!isset($product))
+    $title = getTitle();
+else
+    $title = getTitle($product);
+
 $categories = getCategories();
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title><?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <?php if (!strstr($_SERVER['REQUEST_URI'], 'register.php')): ?>
-    <link href="resources/css/shop-login.css" rel="stylesheet">
-    <?php endif; ?>
     <link href="resources/css/main.css" rel="stylesheet">
-    <link href="resources/css/shop-homepage.css" rel="stylesheet">
-    <link href="resources/css/shop-item.css" rel="stylesheet">
-    <link href="resources/css/shop-searchbar.css" rel="stylesheet">
-    <link href="resources/css/shop-header.css" rel="stylesheet">
+    <link href="resources/css/login.css" rel="stylesheet">
 
     <!-- Font Awesome for icons-->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -44,7 +41,7 @@ $categories = getCategories();
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#"></a>
-        <a href="http://localhost/wide-world-importers/"><img src="resources\IMG\wide-world-importers-logo-small.png" style="max-height: 60px; padding-right: 100px" alt=""></a>
+        <a href="index.php"><img src="resources\images\wide-world-importers-logo-small.png" style="max-height: 60px; padding-right: 100px" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -70,7 +67,7 @@ $categories = getCategories();
                 <?php endif;?>
                 <li><a href="#"><span class="nav-link"></span></a></li>
 
-                <a href="shopping_cart.php">
+                <a href="cart.php">
                     <i id="icon_shopping" class="fa fa-shopping-cart fa_custom fa-1x"></i>
                 </a>
               </ul>
