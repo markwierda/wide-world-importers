@@ -22,6 +22,10 @@ function validateRegistration($form) {
             }
 		}
 
+        // Return errors already if empty values and/or values longer than 45 characters
+        if (!empty($errors))
+            return $errors;
+
 		// Validate email
         if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL))
             $errors['email'] = 'The specified <b>e-mail address</b> is not a valid e-mail address, please try again.';
@@ -38,13 +42,16 @@ function validateRegistration($form) {
         if (strlen($form['password']) < 8 || preg_match('/[A-Z]/', $form['password']) < 1 || preg_match('/[A-Z]/', $form['password']) < 1 || preg_match('/[!@#$%^&*(),.?":{}|<>]/', $form['password']) < 1)
             $errors['password'] = 'The specified <b>password</b> must be at least 8 characters long, contains at least one capital letter, contains at least one number and contains at least one special character. Please try again.';
 
+        // Return all errors
         if (!empty($errors))
 			return $errors;
 
+        // Create user and set logged in session
         create_User($form);
         if (get_uid($form['email']) !== False) {
             createSession(get_uid($form['email']));
         }
+        
         return true;
 	}
 
