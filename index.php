@@ -6,7 +6,6 @@ $products = getHomepageProducts();
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
 
-
 <!-- Page Content -->
 <div class="container">
 

@@ -1,52 +1,68 @@
 <?php
 require_once './functions/sessions.php';
 require_once './functions/cart.php';
-require_once './resources/layouts/header.php';
 
-$card = getCart();
+$cart = getCart();
 $productIDs = [];
 
+$endPrice = calculateEndPrice($cart);
+
 ?>
+<?php require_once './resources/layouts/header.php'; ?>
 
-<div class="container">
-    <div class="cart_section">
-        <link href="resources/css/cart.css" rel="stylesheet">
-        <?php if ($card !== False):?>
-        <div class="row">
-            <div class="col-3">Product name</div>
-            <div class="col-3">Price</div>
-            <div class="col-3">Amount</div>
-            <div class="col-3">Total</div>
-            <?php foreach ($card as $item):?>
-                <?php for ($i = 0; $i < $item['quantity']; $i++) { array_push($productIDs, $item['StockItemID']); }?>
-                <div class="col-3"><?=$item['StockItemName'];?></div>
-                <div class="col-3">&euro; <?=str_replace('.', ',', $item['RecommendedRetailPrice']);?></div>
-                <div class="col-3"><?=$item['quantity'];?></div>
-                <div class="col-3">&euro; <?=str_replace('.', ',', $item['total']);?></div>
-            <?php endforeach;?>
-            <?php $end = calculateEndPrice($productIDs);?>
+<div class="container my-5">
+
+    <h1>Shopping Cart</h1>
+    <br />
+
+    <?php if(!empty($cart)): ?>
+    <div class="row">
+        <div class="col-6">
+            <b>Product</b>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-3">
-                TAX<br />&euro; <?=str_replace('.', ',', $end['BTW']);?><hr/>
-                Total price excl<br />&euro; <?=str_replace('.', ',', $end['EXCL']);?><hr />
-                Total price incl<br/>&euro; <?=str_replace('.', ',', $end['INCL']);?>
-            </div>
+        <div class="col-2">
+            <b>Price</b>
         </div>
-        <?php else:?>
-        <div>
-            There are 0 products in your shopping cart
+        <div class="col-2">
+            <b>Quantity</b>
         </div>
-        <?php endif;?>
-
-
-
-        <a href="http://localhost">  <button type="submit" class="btn btn-primary float-left">Homepage</button>
-            <button type="submit" class="btn btn-primary float-right">Checkout</button> </a>
+        <div class="col-2">
+            <b>Total</b>
+        </div>
     </div>
-</div>
 
+    <hr />
+
+    <?php foreach ($cart as $item):?>
+    <div class="row">
+        <div class="col-6">
+            <a href="product.php?id=<?php echo $item['StockItemID']; ?>">
+                <?php echo $item['StockItemName']; ?>   
+            </a>
+        </div>
+        <div class="col-2">&euro; <?php echo $item['RecommendedRetailPrice']; ?></div>
+        <div class="col-2"><?php echo $item['quantity']; ?></div>
+        <div class="col-2">&euro; <?php echo $item['total']; ?></div>
+    </div>
+
+    <hr />
+    <?php endforeach; ?>
+
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-2">&nbsp;</div>
+        <div class="col-2">&nbsp;</div>
+        <div class="col-2">
+            <b>Total price excl</b><br />&euro; <?php echo $endPrice['EXCL']; ?><br />
+            <b>Tax (21%)</b><br />&euro; <?php echo $endPrice['TAX']; ?><br />
+            <b>Total price incl</b><br />&euro; <?php echo $endPrice['INCL']; ?><br /><br />
+            <a href="#" class="btn btn-success">Checkout</a>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="alert alert-danger alert" role="alert">
+        There are no products found in the shopping cart. Click <a href="index.php">here</a> to go back to the homepage.
+    </div>
+<?php endif; ?>
+
+</div>
