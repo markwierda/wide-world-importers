@@ -1,7 +1,13 @@
 <?php
 
 require_once './functions/sessions.php'; //Contains session_start();
+require_once './functions/title.php';
 require_once './functions/category.php';
+
+if (!isset($product))
+    $title = getTitle();
+else
+    $title = getTitle($product);
 
 $categories = getCategories();
 
@@ -12,7 +18,7 @@ $categories = getCategories();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title><?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
