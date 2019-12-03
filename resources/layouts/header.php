@@ -1,19 +1,16 @@
 <?php
+
 require_once './functions/sessions.php'; //Contains session_start();
 require_once './functions/category.php';
+
 $categories = getCategories();
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Shop Homepage - Start Bootstrap Template</title>
 
@@ -21,14 +18,8 @@ $categories = getCategories();
     <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <?php if (!strstr($_SERVER['REQUEST_URI'], 'register.php')): ?>
-    <link href="resources/css/shop-login.css" rel="stylesheet">
-    <?php endif; ?>
     <link href="resources/css/main.css" rel="stylesheet">
-    <link href="resources/css/shop-homepage.css" rel="stylesheet">
-    <link href="resources/css/shop-item.css" rel="stylesheet">
-    <link href="resources/css/shop-searchbar.css" rel="stylesheet">
-    <link href="resources/css/shop-header.css" rel="stylesheet">
+    <link href="resources/css/login.css" rel="stylesheet">
 
     <!-- Font Awesome for icons-->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

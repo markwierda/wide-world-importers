@@ -25,7 +25,7 @@
 
 /* STRUCTURE */
 
-.wrapper {
+#login .wrapper {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -35,7 +35,7 @@
     padding: 20px;
 }
 
-#formContent {
+#login #formContent {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     background: #fff;
@@ -49,7 +49,7 @@
     text-align: center;
 }
 
-#formFooter {
+#login #formFooter {
     background-color: #f6f6f6;
     border-top: 1px solid #dce8f1;
     padding: 25px;
@@ -62,11 +62,11 @@
 
 /* TABS */
 
-h2.inactive {
+#login h2.inactive {
     color: #cccccc;
 }
 
-h2.active {
+#login h2.active {
     color: #0d0d0d;
     border-bottom: 2px solid #5fbae9;
 }
@@ -74,7 +74,7 @@ h2.active {
 
 
 /* FORM TYPOGRAPHY*/
-input[type=password] {
+#login input[type=password] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -95,17 +95,17 @@ input[type=password] {
     border-radius: 5px 5px 5px 5px;
 }
 
-input[type=password]:focus {
+#login input[type=password]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
 }
 
-input[type=password]:placeholder {
+#login input[type=password]:placeholder {
     color: #cccccc;
 }
 
 
-input[type=button], input[type=submit], input[type=reset]  {
+#login input[type=button], input[type=submit], input[type=reset]  {
     background-color: #56baed;
     border: none;
     color: white;
@@ -127,11 +127,11 @@ input[type=button], input[type=submit], input[type=reset]  {
     transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+#login input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
     background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+#login input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
@@ -139,7 +139,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
 
-input[type=text] {
+#login input[type=text] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -160,12 +160,12 @@ input[type=text] {
     border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+#login input[type=text]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+#login input[type=text]:placeholder {
     color: #cccccc;
 }
 
@@ -174,7 +174,7 @@ input[type=text]:placeholder {
 /* ANIMATIONS */
 
 /* Simple CSS3 Fade-in-down Animation */
-.fadeInDown {
+#login .fadeInDown {
     -webkit-animation-name: fadeInDown;
     animation-name: fadeInDown;
     -webkit-animation-duration: 1s;
@@ -214,7 +214,7 @@ input[type=text]:placeholder {
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-.fadeIn {
+#login .fadeIn {
     opacity:0;
     -webkit-animation:fadeIn ease-in 1;
     -moz-animation:fadeIn ease-in 1;
@@ -229,32 +229,32 @@ input[type=text]:placeholder {
     animation-duration:1s;
 }
 
-.fadeIn.first {
+#login .fadeIn.first {
     -webkit-animation-delay: 0.4s;
     -moz-animation-delay: 0.4s;
     animation-delay: 0.4s;
 }
 
-.fadeIn.second {
+#login .fadeIn.second {
     -webkit-animation-delay: 0.6s;
     -moz-animation-delay: 0.6s;
     animation-delay: 0.6s;
 }
 
-.fadeIn.third {
+#login .fadeIn.third {
     -webkit-animation-delay: 0.8s;
     -moz-animation-delay: 0.8s;
     animation-delay: 0.8s;
 }
 
-.fadeIn.fourth {
+#login .fadeIn.fourth {
     -webkit-animation-delay: 1s;
     -moz-animation-delay: 1s;
     animation-delay: 1s;
 }
 
 /* Simple CSS3 Fade-in Animation */
-.underlineHover:after {
+#login .underlineHover:after {
     display: block;
     left: 0;
     bottom: -10px;
@@ -265,11 +265,11 @@ input[type=text]:placeholder {
     transition: width 0.2s;
 }
 
-.underlineHover:hover {
+#login .underlineHover:hover {
     color: #0d0d0d;
 }
 
-.underlineHover:hover:after{
+#login .underlineHover:hover:after{
     width: 100%;
 }
 
@@ -277,10 +277,10 @@ input[type=text]:placeholder {
 
 /* OTHERS */
 
-*:focus {
+#login *:focus {
     outline: none;
 }
 
-#icon {
+#login #icon {
     width:60%;
 }
