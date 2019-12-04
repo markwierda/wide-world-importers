@@ -1,0 +1,36 @@
+.btn-secondary {
+color: #fff;
+background-color: #343A40;
+border-color: #343A40;
+}
+
+.navbar-brand {
+margin-right: 0rem;
+}
+
+#icon_shopping{
+margin-top: 85%;
+}
+
+
+#searchbar {
+padding: 0 !important;
+width: max-content;
+}
+
+@media only screen and (max-width: 600px) {
+#searchbar {
+height: 300px;
+position: absolute;
+left: 50%;
+top: 32px;
+transform: translate(-50%, -50%);
+}
+
+
+#icon_shopping {
+margin-top: 0%;
+margin-top: 0%
+}
+
+}

@@ -66,3 +66,5 @@ $endPrice = calculateEndPrice($cart);
 <?php endif; ?>
 
 </div>
+
+<?php require_once './resources/layouts/footer.php'; ?>
