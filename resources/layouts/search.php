@@ -1,4 +1,4 @@
-<section class="row d-flex justify-content-center">
+<section class="row d-flex">
     <div class="col-12 col-md-10 col-lg-8">
         <form action="results.php" method="GET">
             <div class="input-group card-body row no-gutters align-items-center" id="searchbar">

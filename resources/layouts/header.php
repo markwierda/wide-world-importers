@@ -48,7 +48,6 @@ $categories = getCategories();
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <?php require_once 'resources/layouts/search.php' ?>
-
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php">Home
@@ -67,10 +66,10 @@ $categories = getCategories();
                         <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 <?php endif;?>
-                <li><a href="#"><span class="nav-link"></span></a></li>
+
+                <a href="cart.php">
+                    <i id="icon_shopping" class="fa fa-shopping-cart fa_custom fa-1x"></i>
                 <li>
-                    <a href="cart.php">
-                        <i id="icon_shopping" class="fa fa-shopping-cart fa_custom fa-1x"></i>
                     </a>
                 </li>
 
