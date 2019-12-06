@@ -29,7 +29,7 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
 <?php require_once './resources/layouts/header.php'; ?>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container my-5">
     <?php require_once './resources/layouts/search.php';?>
     <h1>Showing items <?php if ($itemCount <= $amount) {print("{$page} - {$itemCount}");} else {if ($page*$amount < $itemCount) {print(intval($page)*$amount-($amount-1) . " - " . intval($page)*$amount);} else {print(intval($page)*$amount-($amount-1) . " - {$itemCount}");}}?> of <?=$itemCount?></h1>
     <div class="row">
