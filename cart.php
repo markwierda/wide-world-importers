@@ -54,7 +54,7 @@ $endPrice = calculateEndPrice($cart);
         <div class="col-2">&nbsp;</div>
         <div class="col-2">
             <b>Total price excl</b><br />&euro; <?php echo $endPrice['EXCL']; ?><br />
-            <b>Tax (21%)</b><br />&euro; <?php echo $endPrice['TAX']; ?><br />
+            <b>Tax</b><br />&euro; <?php echo $endPrice['TAX']; ?><br />
             <b>Total price incl</b><br />&euro; <?php echo $endPrice['INCL']; ?><br /><br />
             <a href="#" class="btn btn-success">Checkout</a>
         </div>
