@@ -1,12 +1,10 @@
 <?php
-
 require_once './functions/product.php';
 
 $products = getHomepageProducts();
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
-
 
 <!-- Page Content -->
 <div class="container">
@@ -23,6 +21,14 @@ $products = getHomepageProducts();
 
 
         <div class="col-lg-9 my-4">
+
+            <?php if(isset($_SESSION['ALERT_SUCCESS'])): ?>
+            <div class="alert alert-success alert-dismissible my-4" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <?php echo $_SESSION['ALERT_SUCCESS']; ?>
+            </div>
+            <?php unset($_SESSION['ALERT_SUCCESS']); ?>
+            <?php endif; ?>
 
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -61,7 +67,7 @@ $products = getHomepageProducts();
                             <h4 class="card-title">
                                 <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
                             </h4>
-                            <h5>&euro; <?php echo $product['RecommendedRetailPrice']; ?></h5>
+                            <h5>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h5>
                             <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                         </div>
                         <div class="card-footer">

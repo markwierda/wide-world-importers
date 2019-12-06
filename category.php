@@ -23,9 +23,9 @@ if (isset($_GET['page']))
 $categories = getCategories();
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
-
+<main>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container my-5">
 
         <div class="row">
 
@@ -60,7 +60,7 @@ $categories = getCategories();
                                         <h4 class="card-title">
                                             <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
                                         </h4>
-                                        <h5>&euro; <?php echo $product['RecommendedRetailPrice']; ?></h5>
+                                        <h5>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h5>
                                         <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                                     </div>
                                     <div class="card-footer">
@@ -103,5 +103,6 @@ $categories = getCategories();
 
     </div>
     <!-- /.container -->
+</main>
 
 <?php require_once './resources/layouts/footer.php'; ?>
