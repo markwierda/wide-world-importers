@@ -23,9 +23,9 @@ if (isset($_GET['page']))
 $categories = getCategories();
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
-
+<main>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container my-5">
 
         <div class="row">
 
@@ -103,5 +103,6 @@ $categories = getCategories();
 
     </div>
     <!-- /.container -->
+</main>
 
 <?php require_once './resources/layouts/footer.php'; ?>
