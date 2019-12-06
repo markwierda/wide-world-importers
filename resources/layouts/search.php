@@ -1,4 +1,4 @@
-<section class="row d-flex">
+<section class="row d-flex" style="font-size: 0px";">
     <div class="col-12 col-md-10 col-lg-8">
         <form action="results.php" method="GET">
             <div class="input-group card-body row no-gutters align-items-center" id="searchbar">
@@ -7,7 +7,7 @@
                 <div class="col-auto input-group-append">
                     <button class="btn btn-lg btn-primary" type="submit">Search</button>
                 </div>
-            </div>
+            </div>...
         </form>
     </div>
 </section>
