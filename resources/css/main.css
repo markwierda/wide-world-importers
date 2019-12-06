@@ -3,7 +3,7 @@ body {
 }
 
 main {
-	min-height: calc(100vh - 144px);
+	min-height: calc(100vh - 210px);
 }
 
 footer {
