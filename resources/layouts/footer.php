@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-dark">
+<footer class="bg-dark fixed-bottom position-relative">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Wide World Importers 2019</p>
     </div>
