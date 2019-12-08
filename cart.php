@@ -17,7 +17,7 @@ $endPrice = calculateEndPrice($cart);
         <br />
 
         <?php if(!empty($cart)): ?>
-            <table class="table table-sm">
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Product</th>
@@ -35,7 +35,9 @@ $endPrice = calculateEndPrice($cart);
                             </a>
                         </td>
                         <td>&euro;<?php echo $item['RecommendedRetailPrice']; ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
+                        <td>
+                            <input id="cartQuantity" type="number" class="form-control" value="<?php echo $item['quantity']; ?>">
+                        </td>
                         <td>&euro;<?php echo $item['total']; ?></td>
                     </tr>
                 <?php endforeach; ?>
