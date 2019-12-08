@@ -1,8 +1,9 @@
 <?php
 
-require_once './functions/sessions.php';
-require_once './database/connection.php';
-require_once './functions/product.php';
+$root = str_replace('functions', '', __DIR__);
+
+require_once $root . 'database/connection.php';
+require_once $root . 'functions/product.php';
 
 function addToCart($product) {
     $product = intval($product);

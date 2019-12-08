@@ -38,7 +38,7 @@ div.carousel-item > img {
     width: max-content;
 }
 
-#cartQuantity {
+.cartQuantity {
     width: 100px;
 }
 
@@ -56,7 +56,7 @@ div.carousel-item > img {
     	margin-top: 0;
 	}
 
-    #cartQuantity {
+    .cartQuantity {
         width: 50px;
     }
 }

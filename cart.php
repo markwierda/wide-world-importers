@@ -3,8 +3,6 @@ require_once './functions/sessions.php';
 require_once './functions/cart.php';
 
 $cart = getCart();
-$productIDs = [];
-
 $endPrice = calculateEndPrice($cart);
 
 ?>
@@ -36,9 +34,9 @@ $endPrice = calculateEndPrice($cart);
                         </td>
                         <td>&euro;<?php echo $item['RecommendedRetailPrice']; ?></td>
                         <td>
-                            <input id="cartQuantity" type="number" class="form-control" value="<?php echo $item['quantity']; ?>">
+                            <input id="<?php echo $item['StockItemID']; ?>" type="number" min="1" pattern="[0-9]" class="cartQuantity form-control" value="<?php echo $item['quantity']; ?>">
                         </td>
-                        <td>&euro;<?php echo $item['total']; ?></td>
+                        <td id="total<?php echo $item['StockItemID']; ?>">&euro;<?php echo $item['total']; ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -48,7 +46,7 @@ $endPrice = calculateEndPrice($cart);
 
             <div class="row">
                 <div class="col-md-10 d-sm-none">&nbsp;</div>
-                <div class="col-md-2">
+                <div class="col-md-2" id="endPrice">
                     <b>Total price excl</b><br />&euro;<?php echo $endPrice['EXCL']; ?><br />
                     <b>Tax</b><br />&euro;<?php echo $endPrice['TAX']; ?><br />
                     <b>Total price incl</b><br />&euro;<?php echo $endPrice['INCL']; ?><br /><br />
