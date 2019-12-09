@@ -34,9 +34,9 @@ $endPrice = calculateEndPrice($cart);
                                 <?php echo $item['StockItemName']; ?>
                             </a>
                         </td>
-                        <td>&euro; <?php echo $item['RecommendedRetailPrice']; ?></td>
+                        <td>&euro;<?php echo $item['RecommendedRetailPrice']; ?></td>
                         <td><?php echo $item['quantity']; ?></td>
-                        <td>&euro; <?php echo $item['total']; ?></td>
+                        <td>&euro;<?php echo $item['total']; ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -47,9 +47,9 @@ $endPrice = calculateEndPrice($cart);
             <div class="row">
                 <div class="col-md-10 d-sm-none">&nbsp;</div>
                 <div class="col-md-2">
-                    <b>Total price excl</b><br />&euro; <?php echo $endPrice['EXCL']; ?><br />
-                    <b>Tax</b><br />&euro; <?php echo $endPrice['TAX']; ?><br />
-                    <b>Total price incl</b><br />&euro; <?php echo $endPrice['INCL']; ?><br /><br />
+                    <b>Total price excl</b><br />&euro;<?php echo $endPrice['EXCL']; ?><br />
+                    <b>Tax</b><br />&euro;<?php echo $endPrice['TAX']; ?><br />
+                    <b>Total price incl</b><br />&euro;<?php echo $endPrice['INCL']; ?><br /><br />
                     <a href="#" class="btn btn-success">Checkout</a>
                 </div>
             </div>
