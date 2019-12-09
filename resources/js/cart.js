@@ -9,18 +9,18 @@ $(document).ready(function () {
 
         if (value > max) {
             let cartAlert = $('#cartAlert');
-            
-            cartAlert.html('<span><b>' + this.dataset.title + '</b> has only <b>' + max + '</b> items left in stock</span>' +
-                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>');
-            cartAlert.removeClass('d-none');
 
+            cartAlert.html('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                '<span><b>' + this.dataset.title + '</b> has only <b>' + max + '</b> items left in stock</span>' +
+                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+            
             this.value = max;
         }
 
         if (value < 1)
             this.value = 1;
 
-        updateCart(this)
+        updateCart(this);
     });
 });
 
