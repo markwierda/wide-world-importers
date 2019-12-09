@@ -2,12 +2,30 @@ $(document).ready(function () {
     let cartQuantity = $('.cartQuantity');
 
     cartQuantity.on('change', function() {
-        updateCart(cartQuantity)
+        let value = Number(this.value);
+        let max = Number(this.max);
+
+        this.value = Math.floor(value);
+
+        if (value > max) {
+            let cartAlert = $('#cartAlert');
+            
+            cartAlert.html('<span><b>' + this.dataset.title + '</b> has only <b>' + max + '</b> items left in stock</span>' +
+                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>');
+            cartAlert.removeClass('d-none');
+
+            this.value = max;
+        }
+
+        if (value < 1)
+            this.value = 1;
+
+        updateCart(this)
     });
 });
 
-function updateCart(cartQuantity) {
-    let data = {'quantity': cartQuantity.val(), id: cartQuantity.attr('id')};
+function updateCart(element) {
+    let data = {'quantity': element.value, id: element.id};
 
     $.ajax({
         type: 'POST',
@@ -17,7 +35,7 @@ function updateCart(cartQuantity) {
             let product = response.product;
             let endPrice = response.endPrice;
 
-            console.log($('#total' + cartQuantity.attr('id')).html('&euro;' + product['total']));
+            $('#total' + data.id).html('&euro;' + product['total']);
 
             $('#endPrice').html('<b>Total price excl</b><br />&euro;' + endPrice['EXCL'] + '<br />' +
                 '<b>Tax</b><br />&euro;' + endPrice['TAX'] + '<br />\n' +

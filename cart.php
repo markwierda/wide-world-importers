@@ -15,6 +15,10 @@ $endPrice = calculateEndPrice($cart);
         <br />
 
         <?php if(!empty($cart)): ?>
+            <div id="cartAlert" class="alert alert-danger alert-dismissible d-none" role="alert">
+
+            </div>
+
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -34,7 +38,7 @@ $endPrice = calculateEndPrice($cart);
                         </td>
                         <td>&euro;<?php echo $item['RecommendedRetailPrice']; ?></td>
                         <td>
-                            <input id="<?php echo $item['StockItemID']; ?>" type="number" min="1" pattern="[0-9]" class="cartQuantity form-control" value="<?php echo $item['quantity']; ?>">
+                            <input id="<?php echo $item['StockItemID']; ?>" type="number" min="1" max="<?php echo $item['QuantityOnHand']; ?>" data-title="<?php echo htmlspecialchars($item['StockItemName']); ?>" class="cartQuantity form-control" value="<?php echo $item['quantity']; ?>">
                         </td>
                         <td id="total<?php echo $item['StockItemID']; ?>">&euro;<?php echo $item['total']; ?></td>
                     </tr>

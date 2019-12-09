@@ -31,7 +31,6 @@ function getCart() {
         $product['quantity'] = $quantity;
         $product['total'] = $quantity*$product['RecommendedRetailPrice'];
         $product['RecommendedRetailPrice'] = number_format($product['RecommendedRetailPrice'], 2, ',', '.');
-        $product['quantity'] = number_format($product['quantity'], 0, ',', '.');
         $product['total'] = number_format($product['total'], 2, ',', '.');
 
         array_push($cart, $product);

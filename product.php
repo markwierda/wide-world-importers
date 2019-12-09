@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once './functions/product.php';
 
 if ($_POST) {
