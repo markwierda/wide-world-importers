@@ -50,6 +50,14 @@ div.carousel-item > img {
 	display: block;
 }
 
+.fa-trash {
+    color: black;
+}
+
+.fa-trash:hover {
+    color: red;
+}
+
 /* mobile and tablet */
 @media only screen and (max-width: 991px) {
 	#icon_shopping{

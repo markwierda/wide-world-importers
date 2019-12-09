@@ -4,6 +4,7 @@ $root = str_replace('functions', '', __DIR__);
 
 require_once $root . 'database/connection.php';
 require_once $root . 'functions/product.php';
+require_once $root . 'functions/redirect.php';
 
 function addToCart($product) {
     $product = intval($product);
@@ -37,6 +38,11 @@ function getCart() {
     }
 
     return $cart;
+}
+
+function removeFromCart($id) {
+    unset($_SESSION['CART'][$id]);
+    redirect('cart.php');
 }
 
 function calculateEndPrice($cart) {
