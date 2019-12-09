@@ -1,8 +1,9 @@
 <?php
 
-require_once './functions/sessions.php';
-require_once './database/connection.php';
-require_once './functions/product.php';
+$root = str_replace('functions', '', __DIR__);
+
+require_once $root . 'database/connection.php';
+require_once $root . 'functions/product.php';
 
 function addToCart($product) {
     $product = intval($product);
@@ -30,7 +31,6 @@ function getCart() {
         $product['quantity'] = $quantity;
         $product['total'] = $quantity*$product['RecommendedRetailPrice'];
         $product['RecommendedRetailPrice'] = number_format($product['RecommendedRetailPrice'], 2, ',', '.');
-        $product['quantity'] = number_format($product['quantity'], 0, ',', '.');
         $product['total'] = number_format($product['total'], 2, ',', '.');
 
         array_push($cart, $product);

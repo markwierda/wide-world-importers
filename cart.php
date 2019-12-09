@@ -3,8 +3,6 @@ require_once './functions/sessions.php';
 require_once './functions/cart.php';
 
 $cart = getCart();
-$productIDs = [];
-
 $endPrice = calculateEndPrice($cart);
 
 ?>
@@ -17,7 +15,11 @@ $endPrice = calculateEndPrice($cart);
         <br />
 
         <?php if(!empty($cart)): ?>
-            <table class="table table-sm">
+            <div id="cartAlert" class="alert alert-danger alert-dismissible d-none" role="alert">
+
+            </div>
+
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Product</th>
@@ -35,8 +37,10 @@ $endPrice = calculateEndPrice($cart);
                             </a>
                         </td>
                         <td>&euro;<?php echo $item['RecommendedRetailPrice']; ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
-                        <td>&euro;<?php echo $item['total']; ?></td>
+                        <td>
+                            <input id="<?php echo $item['StockItemID']; ?>" type="number" min="1" max="<?php echo $item['QuantityOnHand']; ?>" data-title="<?php echo htmlspecialchars($item['StockItemName']); ?>" class="cartQuantity form-control" value="<?php echo $item['quantity']; ?>">
+                        </td>
+                        <td id="total<?php echo $item['StockItemID']; ?>">&euro;<?php echo $item['total']; ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -46,7 +50,7 @@ $endPrice = calculateEndPrice($cart);
 
             <div class="row">
                 <div class="col-md-10 d-sm-none">&nbsp;</div>
-                <div class="col-md-2">
+                <div class="col-md-2" id="endPrice">
                     <b>Total price excl</b><br />&euro;<?php echo $endPrice['EXCL']; ?><br />
                     <b>Tax</b><br />&euro;<?php echo $endPrice['TAX']; ?><br />
                     <b>Total price incl</b><br />&euro;<?php echo $endPrice['INCL']; ?><br /><br />
