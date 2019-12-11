@@ -1,6 +1,8 @@
 <?php
 
-require_once './database/connection.php';
+$root = str_replace('functions', '', __DIR__);
+
+require_once $root . './database/connection.php';
 
 // Get homepage products
 function getHomepageProducts() {

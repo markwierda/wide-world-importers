@@ -4,6 +4,9 @@ function getTitle($product = null) {
     $uri = str_replace('/wide-world-importers/', '', $_SERVER['REQUEST_URI']);
     $uri = explode('?', $uri)[0];
 
+    if (isset($url) && $uri[0] === '/') {
+        $uri = substr_replace($uri, '', 0, 1);
+    }
     switch ($uri) {
         case 'category.php':
             $title = $_GET['name'] . ' - ' . 'Wide World Importers';
