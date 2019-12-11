@@ -4,7 +4,7 @@ session_start();
 
 require_once './functions/product.php';
 
-if ($_POST) {
+if (isset($_POST['add'])) {
     require_once './functions/cart.php';
 
     addToCart($_POST['productID']);
@@ -53,7 +53,7 @@ $product = getProductByID($_GET['id']);
                     <div class="col-lg-3 col-md">
                         <form action="product.php" method="POST">
                             <input type="hidden" name="productID" value="<?php echo $product['StockItemID']; ?>">
-                            <button id="addToCart" type="submit" class="btn btn-success float-md-right">Add to cart</button>
+                            <button id="addToCart" type="submit" name="add" class="btn btn-success float-md-right">Add to cart</button>
                         </form>
                     </div>
                 </div>
@@ -75,20 +75,21 @@ $product = getProductByID($_GET['id']);
                     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
                     <hr>
 
-                    <form action="thispage.php" method="post" accept-charset="utf-8">
-                        <fieldset><legend>Review This Product</legend>
-                            <p><label for="rating">Rating</label>
-                                <input type="radio" name="rating" value="1" /> 1
-                                <input type="radio" name="rating" value="2" /> 2
-                                <input type="radio" name="rating" value="3" /> 3
-                                <input type="radio" name="rating" value="4" /> 4
-                                <input type="radio" name="rating" value="5" /> 5</p>
-                            <p><label for="review">Review</label><textarea name="review" rows="8" cols="40">
-                                </textarea></p>
-                            <p><input type="submit" value="Submit Review"></p>
-                            <input type="hidden" name="product_type" value="actual_product_type" id="product_type">
-                            <input type="hidden" name="product_id" value="actual_product_id" id="product_id">
-                        </fieldset>
+                    <h5>Leave a review</h5>
+
+                    <form action="product.php" method="POST">
+                        <div class="form-group">
+                            <input type="radio" name="rating" value="1" /> 1
+                            <input type="radio" name="rating" value="2" /> 2
+                            <input type="radio" name="rating" value="3" /> 3
+                            <input type="radio" name="rating" value="4" /> 4
+                            <input type="radio" name="rating" value="5" /> 5
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" class="form-control" maxlength="200"></textarea>
+                        </div>
+                        <button type="submit" name="review" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
