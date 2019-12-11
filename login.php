@@ -29,6 +29,7 @@ if ($_POST) {
 }
 
 require_once './resources/layouts/header.php';
+
 ?>
 
 <main id="login">
