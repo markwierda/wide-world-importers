@@ -72,7 +72,7 @@ function userAlreadyHasReview($pid, $uid) {
 
 // Insert review in database
 function saveReview($pid, $uid, $review) {
-    // XSS prevention
+    // Convert HTML characters to text
     foreach ($review as $key => $value) {
         $review[$key] = htmlentities($value);
     }
