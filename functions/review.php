@@ -96,7 +96,7 @@ function getReviewByProductID($pid) {
     $stmt = $conn->prepare(
     'SELECT R.product_id, R.user_id, R.stars, R.description, R.created_at, U.name FROM wwi_reviews R
             JOIN wwi_users U ON U.id = R.user_id
-            WHERE R.product_id = ?;');
+            WHERE R.product_id = ? ORDER BY R.created_at DESC;');
     $stmt->bind_param('i', $pid);
     $stmt->execute();
 
@@ -106,4 +106,43 @@ function getReviewByProductID($pid) {
         return false;
 
     return $result;
+}
+
+// Get stars
+function getStars($stars) {
+    $starString = '';
+
+    for ($i=1; $i<=5; $i++) {
+        if ($i <= $stars) {
+            $starString .= ' &#9733;';
+        } else {
+            $starString .= ' &#9734;';
+        }
+    }
+
+    return $starString;
+}
+
+// Get average stars
+function getAverageStars($pid) {
+    $conn = connection();
+
+    $stmt = $conn->prepare('SELECT sum(stars) / count(stars) as averageStars FROM wwi_reviews WHERE product_id = ?;');
+    $stmt->bind_param('i', $pid);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    $stars = $result[0]['averageStars'];
+    $starString = '';
+
+    for ($i=1; $i<=5; $i++) {
+        if ($i <= $stars) {
+            $starString .= ' &#9733;';
+        } else {
+            $starString .= ' &#9734;';
+        }
+    }
+
+    return $starString;
 }

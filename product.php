@@ -68,8 +68,10 @@ if (isset($_SESSION['user_id']))
                         <h4>&euro;<?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h4>
                         <p class="card-text"><?php echo !empty($product['MarketingComments']) ? $product['MarketingComments'] : '<i>This product has no description</i>'; ?></p>
                         <p class="card-text"><?php echo ($product['QuantityOnHand'] > 25) ? "<a class='text-success'>In stock</a>" : "<a class='text-danger'>{$product['QuantityOnHand']} Left</a>"?></p>
-                        <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                        4.0 stars
+                        <?php if (!empty($reviews)): ?>
+                        <span class="text-warning"><?php echo getAverageStars($_GET['id']); ?></span>
+                        <?php echo count($reviews) > 1 ?  count($reviews) . ' reviews' :  count($reviews). ' review' ?>
+                        <?php endif; ?>
                     </div>
                     <div class="col-lg-3 col-md">
                         <form action="product.php" method="POST">
@@ -89,7 +91,8 @@ if (isset($_SESSION['user_id']))
                     <?php if (!empty($reviews)): ?>
                     <?php foreach ($reviews as $review): ?>
                     <p><?php echo $review['description']; ?></p>
-                    <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo isset($review['updated_at']) ? date('d-m-Y', strtotime($review['updated_at'])) : date('d-m-Y', strtotime($review['created_at'])); ?></small>
+                    <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo isset($review['updated_at']) ? date('d-m-Y H:i:s', strtotime($review['updated_at'])) : date('d-m-Y H:i:s', strtotime($review['created_at'])); ?></small><br>
+                    <span class="text-warning"><?php echo getStars($review['stars']); ?></span>
                     <hr>
                     <?php endforeach; ?>
                     <?php else: ?>
