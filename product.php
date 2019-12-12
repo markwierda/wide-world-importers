@@ -107,6 +107,7 @@ if (isset($_SESSION['user_id']))
                             <i class="fa fa-star fa-2x" data-index="3"></i>
                             <i class="fa fa-star fa-2x" data-index="4"></i>
                             <i class="fa fa-star fa-2x" data-index="5"></i>
+                            <input id="stars" type="hidden" name="stars" value="0">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
