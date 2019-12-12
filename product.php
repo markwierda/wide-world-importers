@@ -1,16 +1,30 @@
 <?php
 
-session_start();
-
 require_once './functions/product.php';
+require_once './functions/review.php';
 
-if ($_POST) {
+if (isset($_POST['add'])) {
     require_once './functions/cart.php';
-
     addToCart($_POST['productID']);
 }
 
+if (isset($_POST['review'])) {
+    $response = validateReview($_POST);
+
+    if ($response && is_array($response)) {
+        $errors = $response;
+    } else {
+        $_SESSION['ALERT_SUCCESS'] = 'Your review has been placed.';
+        header('Location: product.php?id=' . $_GET['id']);
+    }
+}
+
 $product = getProductByID($_GET['id']);
+$reviews = getReviewByProductID($_GET['id']);
+
+$userAlreadyHasReview = false;
+if (isset($_SESSION['user_id']))
+    $userAlreadyHasReview = userAlreadyHasReview($_GET['id'], $_SESSION['user_id']);
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
@@ -30,7 +44,6 @@ $product = getProductByID($_GET['id']);
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9 my-4">
-
             <?php if(isset($_SESSION['ALERT_SUCCESS'])): ?>
                 <div class="alert alert-success alert-dismissible my-4" role="alert">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -38,6 +51,14 @@ $product = getProductByID($_GET['id']);
                 </div>
                 <?php unset($_SESSION['ALERT_SUCCESS']); ?>
             <?php endif; ?>
+
+            <?php if (isset($errors) && is_array($errors)): ?>
+                <div class="alert alert-danger my-4" role="alert">
+                    <?php foreach ($errors as $error): ?>
+                        <span><?php echo $error; ?></span>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif?>
 
             <div class="card mt-4">
                 <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="<?php echo $product['StockItemName']; ?>">
@@ -47,13 +68,15 @@ $product = getProductByID($_GET['id']);
                         <h4>&euro;<?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h4>
                         <p class="card-text"><?php echo !empty($product['MarketingComments']) ? $product['MarketingComments'] : '<i>This product has no description</i>'; ?></p>
                         <p class="card-text"><?php echo ($product['QuantityOnHand'] > 25) ? "<a class='text-success'>In stock</a>" : "<a class='text-danger'>{$product['QuantityOnHand']} Left</a>"?></p>
-                        <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                        4.0 stars
+                        <?php if (!empty($reviews)): ?>
+                        <span class="text-warning"><?php echo getAverageStars($_GET['id']); ?></span>
+                        <?php echo count($reviews) > 1 ?  count($reviews) . ' reviews' :  count($reviews). ' review' ?>
+                        <?php endif; ?>
                     </div>
                     <div class="col-lg-3 col-md">
                         <form action="product.php" method="POST">
                             <input type="hidden" name="productID" value="<?php echo $product['StockItemID']; ?>">
-                            <button id="addToCart" type="submit" class="btn btn-success float-md-right">Add to cart</button>
+                            <button id="addToCart" type="submit" name="add" class="btn btn-success float-md-right">Add to cart</button>
                         </form>
                     </div>
                 </div>
@@ -65,31 +88,53 @@ $product = getProductByID($_GET['id']);
                     Product Reviews
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <?php if (!empty($reviews)): ?>
+                    <?php foreach ($reviews as $review): ?>
+                    <p><?php echo $review['description']; ?></p>
+                    <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo isset($review['updated_at']) ? date('d-m-Y H:i:s', strtotime($review['updated_at'])) : date('d-m-Y H:i:s', strtotime($review['created_at'])); ?></small><br>
+                    <span class="text-warning"><?php echo getStars($review['stars']); ?></span>
                     <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <p>There are no reviews for this product yet.</p>
                     <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
+                    <?php endif; ?>
 
-                    <form action="thispage.php" method="post" accept-charset="utf-8">
-                        <fieldset><legend>Review This Product</legend>
-                            <p><label for="rating">Rating</label>
-                                <input type="radio" name="rating" value="1" /> 1
-                                <input type="radio" name="rating" value="2" /> 2
-                                <input type="radio" name="rating" value="3" /> 3
-                                <input type="radio" name="rating" value="4" /> 4
-                                <input type="radio" name="rating" value="5" /> 5</p>
-                            <p><label for="review">Review</label><textarea name="review" rows="8" cols="40">
-                                </textarea></p>
-                            <p><input type="submit" value="Submit Review"></p>
-                            <input type="hidden" name="product_type" value="actual_product_type" id="product_type">
-                            <input type="hidden" name="product_id" value="actual_product_id" id="product_id">
-                        </fieldset>
+                    <?php if (!$userAlreadyHasReview): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <h5>Leave a review</h5>
+                    <form action="product.php?id=<?php echo $_GET['id']; ?>" method="POST">
+                        <div class="form-group">
+                            <i class="fa fa-star fa-2x" data-index="1" style="border: 1px"></i>
+                            <i class="fa fa-star fa-2x" data-index="2"></i>
+                            <i class="fa fa-star fa-2x" data-index="3"></i>
+                            <i class="fa fa-star fa-2x" data-index="4"></i>
+                            <i class="fa fa-star fa-2x" data-index="5"></i>
+                            <input id="stars" type="hidden" name="stars" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" class="form-control" maxlength="200" required></textarea>
+                        </div>
+                        <?php require_once 'resources/layouts/recaptcha.php'; ?>
+                        <button type="submit" name="review" class="btn btn-primary">Submit</button>
                     </form>
+                    <?php else: ?>
+                    <h5>Login to leave a review</h5>
+                    <form action="login.php?redirect=product.php?id=<?php echo $_GET['id']; ?>" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input id="password" type="password" name="password" class="form-control" required>
+                        </div>
+                        <?php require_once 'resources/layouts/recaptcha.php'; ?>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <!-- /.card -->
