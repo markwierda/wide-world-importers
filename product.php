@@ -102,11 +102,11 @@ if (isset($_SESSION['user_id']))
                     <h5>Leave a review</h5>
                     <form action="product.php?id=<?php echo $_GET['id']; ?>" method="POST">
                         <div class="form-group">
-                            <input type="radio" name="stars" value="1" required /> 1
-                            <input type="radio" name="stars" value="2" /> 2
-                            <input type="radio" name="stars" value="3" /> 3
-                            <input type="radio" name="stars" value="4" /> 4
-                            <input type="radio" name="stars" value="5" /> 5
+                            <i class="fa fa-star fa-2x" data-index="1" style="border: 1px"></i>
+                            <i class="fa fa-star fa-2x" data-index="2"></i>
+                            <i class="fa fa-star fa-2x" data-index="3"></i>
+                            <i class="fa fa-star fa-2x" data-index="4"></i>
+                            <i class="fa fa-star fa-2x" data-index="5"></i>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
