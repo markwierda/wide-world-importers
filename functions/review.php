@@ -2,9 +2,11 @@
 
 session_start();
 
-require_once './database/connection.php';
-require_once 'recaptcha.php';
-require_once 'redirect.php';
+$root = str_replace('functions', '', __DIR__);
+
+require_once $root . 'database/connection.php';
+require_once $root . 'functions/recaptcha.php';
+require_once $root . 'functions/redirect.php';
 
 function validateReview($form) {
     if (isset($_SESSION['user_id'])) {
@@ -81,6 +83,39 @@ function saveReview($pid, $uid, $review) {
 
     $stmt = $conn->prepare('INSERT INTO wwi_reviews(product_id, user_id, stars, description, created_at) VALUES (?, ?, ?, ?, now());');
     $stmt->bind_param('iiis', $pid, $uid, $review['stars'], $review['description']);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 1)
+        return false;
+
+    return true;
+}
+
+// Update review in database
+function updateReview($pid, $uid, $review) {
+    // Convert HTML characters to text
+    foreach ($review as $key => $value) {
+        $review[$key] = htmlentities($value);
+    }
+
+    $conn = connection();
+
+    $stmt = $conn->prepare('UPDATE wwi_reviews SET stars = ?, description = ?, updated_at = now() WHERE product_id = ? AND user_id = ?;');
+    $stmt->bind_param('isii', $review['stars'], $review['description'], $pid, $uid);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 1)
+        return false;
+
+    return true;
+}
+
+// Delete review in database
+function deleteReview($pid, $uid) {
+    $conn = connection();
+
+    $stmt = $conn->prepare('DELETE FROM wwi_reviews WHERE product_id = ? AND user_id = ?;');
+    $stmt->bind_param('ii', $pid, $uid);
     $stmt->execute();
 
     if ($stmt->affected_rows < 1)

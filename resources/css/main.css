@@ -50,6 +50,10 @@ div.carousel-item > img {
 	display: block;
 }
 
+.reviewActions {
+    margin-top: 1em;
+}
+
 .fa-trash {
     color: black;
 }
