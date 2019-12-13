@@ -1,5 +1,6 @@
 <?php
 require_once 'database/connection.php';
+require_once 'discount.php';
 
 function search_products_itemCount($search) {
     if (!empty($search)) {
@@ -54,6 +55,7 @@ function search_products($search, $page, $amount=24) {
         if (is_numeric($search)) {
             //suppose its a product ID
             //Prepare query
+
             $query = "SELECT * FROM stockitems WHERE StockItemID = ? LIMIT ? OFFSET ?;";
 
             //Bind parameters to query
@@ -75,6 +77,7 @@ function search_products($search, $page, $amount=24) {
         }
         else {
             $query = "SELECT * FROM stockitems WHERE StockItemName LIKE ? OR MarketingComments LIKE ? LIMIT ? OFFSET ?;";
+            //$query = "SELECT * FROM stockitems LEFT JOIN specialdeals ON specialdeals.StockItemID = stockitems.StockItemID WHERE StockItemName LIKE ? OR MarketingComments LIKE ? LIMIT ? OFFSET ?;";
             $search = "%{$search}%";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("ssii", $search, $search, $amount, $page);

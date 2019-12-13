@@ -2,6 +2,7 @@
 
 require_once './functions/product.php';
 require_once './functions/review.php';
+require_once './functions/discount.php';
 
 if (isset($_POST['add'])) {
     require_once './functions/cart.php';
@@ -65,7 +66,25 @@ if (isset($_SESSION['user_id']))
                 <div class="card-body row">
                     <div class="col-lg-9 col-md">
                         <h3 class="card-title"><?php echo $product['StockItemName']; ?></h3>
-                        <h4>&euro;<?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h4>
+                        <h4>
+                            <?php
+                            $retailprice = $product['RecommendedRetailPrice'];
+                            $discount = getDiscount($product['StockItemID']);
+                            if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+                                $price = $retailprice;
+                                print("FROM <s class='text-danger'>&euro;" . number_format($price , 2, ',', '.') . "</s> FOR ");
+                                if (!is_null($discount['DiscountPercentage'])) {
+                                    $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+                                }
+                                if (!is_null($discount['DiscountAmount'])) {
+                                    $price = $price - $discount['DiscountAmount'];
+                                }
+                                $retailprice = $price;
+                            }
+
+                            echo "&euro;" . number_format($retailprice, 2, ',', '.');
+                            ?>
+                        </h4>
                         <p class="card-text"><?php echo !empty($product['MarketingComments']) ? $product['MarketingComments'] : '<i>This product has no description</i>'; ?></p>
                         <p class="card-text"><?php echo ($product['QuantityOnHand'] > 25) ? "<a class='text-success'>In stock</a>" : "<a class='text-danger'>{$product['QuantityOnHand']} Left</a>"?></p>
                         <?php if (!empty($reviews)): ?>
