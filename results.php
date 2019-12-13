@@ -48,11 +48,11 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
                     <h4 class="card-title">
                         <a href="product.php?id=<?=$row['StockItemID']?>"><?=$row['StockItemName'];?></a>
                     </h4>
-                    <h5>&euro;<?php
+                    <h5><?php
                         $discount = getDiscount($row['StockItemID']);
                         if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
                             $price = $row['RecommendedRetailPrice'];
-                            print("<s>" . $price . "</s>");
+                            print("FROM <s class='text-danger'>&euro;" . number_format($price , 2, ',', '.') . "</s> FOR ");
 
                             if (!is_null($discount['DiscountPercentage'])) {
                                 $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
@@ -60,11 +60,11 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
                             if (!is_null($discount['DiscountAmount'])) {
                                 $price = $price - $discount['DiscountAmount'];
                             }
-
+                            $price = number_format($price, 2, ',', '.');
                             print("&euro;" . $price);
 
                         } else {
-                            print($row['RecommendedRetailPrice']);
+                            print("&euro;" . number_format($row['RecommendedRetailPrice'], 2, ',', '.'));
                         }
                         ?></h5>
                     <p class="card-text"><?=(!isset($row['MarketingComments']) || trim($row['MarketingComments'] === '')) ? "No description available for this product" : $row['MarketingComments'];?></p>
