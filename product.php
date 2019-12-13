@@ -128,13 +128,12 @@ if (isset($_SESSION['user_id']))
                         <p data-description="<?php echo $review['user_id']; ?>"><?php echo $review['description']; ?></p>
                         <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo isset($review['updated_at']) ? date('d-m-Y H:i:s', strtotime($review['updated_at'])) : date('d-m-Y H:i:s', strtotime($review['created_at'])); ?></small><br>
                         <span class="text-warning"><?php echo getStars($review['stars']); ?></span>
-                        <?php if ($_SESSION['user_id'] === $review['user_id']): ?>
+                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $review['user_id']): ?>
                         <div class="reviewActions">
                             <button id="editReview" class="btn btn-primary" data-review='<?php echo json_encode($review); ?>'>Edit</button>
                             <button id="deleteReview" class="btn btn-danger" data-review='<?php echo json_encode($review); ?>'>Delete</button>
                         </div>
                         <?php endif; ?>
-                    </div>
                     <hr>
                     </div>
                     <?php endforeach; ?>
