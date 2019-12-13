@@ -5,6 +5,8 @@ $root = str_replace('functions', '', __DIR__);
 require_once $root . 'database/connection.php';
 require_once $root . 'functions/product.php';
 require_once $root . 'functions/redirect.php';
+require_once $root . 'functions/discount.php';
+
 
 function addToCart($product) {
     $product = intval($product);
@@ -28,8 +30,24 @@ function getCart() {
     $cart = [];
 
     foreach ($_SESSION['CART'] as $id => $quantity) {
+
         $product = getProductByID($id);
         $product['quantity'] = $quantity;
+
+        $discount = getDiscount($id);
+        if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+            $price = $product['RecommendedRetailPrice'];
+            if (!is_null($discount['DiscountPercentage'])) {
+                $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+            }
+            if (!is_null($discount['DiscountAmount'])) {
+                $price = $price - $discount['DiscountAmount'];
+            }
+            //$price = number_format($price, 2, ',', '.');
+            $product['RecommendedRetailPrice'] = $price;
+        }
+
+        $product['RecommendedRetailPrice'] = number_format($product['RecommendedRetailPrice'], 2);
         $product['total'] = $quantity*$product['RecommendedRetailPrice'];
         $product['RecommendedRetailPrice'] = number_format($product['RecommendedRetailPrice'], 2, ',', '.');
         $product['total'] = number_format($product['total'], 2, ',', '.');
@@ -78,9 +96,24 @@ function calculateTAX($productID) {
         //Er van uitgaan dat RecommendedRetailPrice excl BTW is
         $recommendedRetailPriceExcl = doubleval($result['RecommendedRetailPrice']);
 
+
+        $discount = getDiscount($productID);
+        if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+            $price = $recommendedRetailPriceExcl;
+            if (!is_null($discount['DiscountPercentage'])) {
+                $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+            }
+            if (!is_null($discount['DiscountAmount'])) {
+                $price = $price - $discount['DiscountAmount'];
+            }
+            $recommendedRetailPriceExcl = $price;
+        }
+
         //Er van uitgaan dat RecommendedRetailPrice Incl BTW is
         //$recommendedRetailPriceIncl = doubleval($result['RecommendedRetailPrice']);
         //$btw = $recommendedRetailPriceIncl - $recommendedRetailPriceIncl / ($btwPercentage+1);
+
+
 
         $btw = $recommendedRetailPriceExcl * $btwPercentage;
         return $btw;
@@ -97,6 +130,19 @@ function getRecommendedRetailPrice($productID) {
         $stmt->bind_param("i", $productID);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc()['RecommendedRetailPrice'];
+
+        $discount = getDiscount($productID);
+        if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+            $price = $result;
+            if (!is_null($discount['DiscountPercentage'])) {
+                $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+            }
+            if (!is_null($discount['DiscountAmount'])) {
+                $price = $price - $discount['DiscountAmount'];
+            }
+            $result = $price;
+        }
+
         return $result;
     }catch (Exception $e) {
         return null;
