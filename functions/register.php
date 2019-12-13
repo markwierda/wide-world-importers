@@ -18,7 +18,7 @@ function validateRegistration($form) {
 
             // Check if values not longer than 45 characters
 		    if (strlen($value) > 45 && $key !== 'g-recaptcha-response') {
-                $errors[$key] = 'The <b>' . $key . '</b> field cannot longer than 45 characters, please try again.';
+                $errors[$key] = 'The <b>' . $key . '</b> field cannot be longer than 45 characters, please try again.';
             }
 		}
 
