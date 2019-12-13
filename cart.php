@@ -37,6 +37,7 @@ if (isset($_GET['delete'])) {
             </thead>
             <tbody>
             <?php foreach ($cart as $item):?>
+                <?php $discount = getDiscount($item['StockItemID']); ?>
                 <tr>
                     <td scope="row">
                         <a href="cart.php?delete=<?php echo $item['StockItemID']; ?>">
