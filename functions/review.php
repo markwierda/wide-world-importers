@@ -140,6 +140,18 @@ function getReviewByProductID($pid) {
     if (empty($result))
         return false;
 
+    // Move a users review to the top if user is logged in and has a review
+    if (isset($_SESSION['user_id'])) {
+        $temp = [];
+        foreach ($result as $key => $value) {
+            if ($value['user_id'] === $_SESSION['user_id']) {
+                $temp[0] = $value;
+                unset($result[$key]);
+                $result = array_merge($temp, $result);
+            }
+        }
+    }
+
     return $result;
 }
 
