@@ -2,6 +2,7 @@
 
 require_once './functions/search.php';
 require_once './functions/redirect.php';
+require_once './functions/review.php';
 
 try {
     $searchquery = isset($_GET['s']) ? strval($_GET['s']) : '';
@@ -70,7 +71,7 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
                     <p class="card-text"><?=(!isset($row['MarketingComments']) || trim($row['MarketingComments'] === '')) ? "No description available for this product" : $row['MarketingComments'];?></p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> <!-- Rating -->
+                    <span class="text-muted"><?php echo getAverageStars($row['StockItemID']); ?></span>
                 </div>
             </div>
         </div>
