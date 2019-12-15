@@ -100,8 +100,8 @@ function updateReview($pid, $uid, $review) {
 
     $conn = connection();
 
-    $stmt = $conn->prepare('UPDATE wwi_reviews SET stars = ?, description = ?, updated_at = now() WHERE product_id = ? AND user_id = ?;');
-    $stmt->bind_param('isii', $review['stars'], $review['description'], $pid, $uid);
+    $stmt = $conn->prepare('UPDATE wwi_reviews SET description = ?, updated_at = now() WHERE product_id = ? AND user_id = ?;');
+    $stmt->bind_param('sii', $review['description'], $pid, $uid);
     $stmt->execute();
 
     if ($stmt->affected_rows < 1)

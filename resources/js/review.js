@@ -32,7 +32,6 @@ $(document).ready(function () {
         let urlParams = new URLSearchParams(window.location.search);
 
         review.description = $('#edit textarea').val();
-        review.stars = $('#stars').val();
         review.user_id = this.dataset.user_id;
         review.product_id = urlParams.get('id');
 
@@ -51,7 +50,7 @@ $(document).ready(function () {
 
 function setStars(max) {
     for (let i=0; i <= max; i++) {
-        $('.fa-star:eq(' + i + ')').css('color', 'green');
+        $('.fa-star:eq(' + i + ')').css('color', '#ffc107');
     }
 }
 

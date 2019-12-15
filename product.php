@@ -109,14 +109,6 @@ if (isset($_SESSION['user_id']))
                 <div class="card-body">
                     <?php if (!empty($reviews)): ?>
                     <div id="edit" class="d-none">
-                        <div class="form-group">
-                            <i class="fa fa-star fa-2x" data-index="1" style="border: 1px"></i>
-                            <i class="fa fa-star fa-2x" data-index="2"></i>
-                            <i class="fa fa-star fa-2x" data-index="3"></i>
-                            <i class="fa fa-star fa-2x" data-index="4"></i>
-                            <i class="fa fa-star fa-2x" data-index="5"></i>
-                            <input id="stars" type="hidden" name="stars" value="0">
-                        </div>
                         <textarea class="form-control" data-description="<?php echo $_SESSION['user_id']; ?>"></textarea>
                         <div class="reviewActions">
                             <button id="saveReview" class="btn btn-primary" data-user_id="<?php echo $_SESSION['user_id']; ?>">Save</button>
