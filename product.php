@@ -109,14 +109,6 @@ if (isset($_SESSION['user_id']))
                 <div class="card-body">
                     <?php if (!empty($reviews)): ?>
                     <div id="edit" class="d-none">
-                        <div class="form-group">
-                            <i class="fa fa-star fa-2x" data-index="1" style="border: 1px"></i>
-                            <i class="fa fa-star fa-2x" data-index="2"></i>
-                            <i class="fa fa-star fa-2x" data-index="3"></i>
-                            <i class="fa fa-star fa-2x" data-index="4"></i>
-                            <i class="fa fa-star fa-2x" data-index="5"></i>
-                            <input id="stars" type="hidden" name="stars" value="0">
-                        </div>
                         <textarea class="form-control" data-description="<?php echo $_SESSION['user_id']; ?>"></textarea>
                         <div class="reviewActions">
                             <button id="saveReview" class="btn btn-primary" data-user_id="<?php echo $_SESSION['user_id']; ?>">Save</button>
@@ -128,13 +120,12 @@ if (isset($_SESSION['user_id']))
                         <p data-description="<?php echo $review['user_id']; ?>"><?php echo $review['description']; ?></p>
                         <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo isset($review['updated_at']) ? date('d-m-Y H:i:s', strtotime($review['updated_at'])) : date('d-m-Y H:i:s', strtotime($review['created_at'])); ?></small><br>
                         <span class="text-warning"><?php echo getStars($review['stars']); ?></span>
-                        <?php if ($_SESSION['user_id'] === $review['user_id']): ?>
+                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $review['user_id']): ?>
                         <div class="reviewActions">
                             <button id="editReview" class="btn btn-primary" data-review='<?php echo json_encode($review); ?>'>Edit</button>
                             <button id="deleteReview" class="btn btn-danger" data-review='<?php echo json_encode($review); ?>'>Delete</button>
                         </div>
                         <?php endif; ?>
-                    </div>
                     <hr>
                     </div>
                     <?php endforeach; ?>

@@ -1,5 +1,6 @@
 <?php
 require_once './functions/product.php';
+require_once './functions/review.php';
 
 $products = getHomepageProducts();
 
@@ -71,7 +72,7 @@ $products = getHomepageProducts();
                             <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            <span class="text-muted"><?php echo getAverageStars($product['StockItemID']); ?></span>
                         </div>
                     </div>
                 </div>

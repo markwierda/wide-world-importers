@@ -2,6 +2,8 @@
 
 require_once './functions/product.php';
 require_once './functions/category.php';
+require_once './functions/review.php';
+
 if (isset($_GET['amount']) && isset($_GET['page']))
     $products = getProductsByCategory($_GET['name'], $_GET['amount'], $_GET['page']);
 elseif(isset($_GET['amount']) && !isset($_GET['page']))
@@ -64,7 +66,7 @@ $categories = getCategories();
                                         <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                                     </div>
                                     <div class="card-footer">
-                                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        <span class="text-muted"><?php echo getAverageStars($product['StockItemID']); ?></span>
                                     </div>
                                 </div>
                             </div>

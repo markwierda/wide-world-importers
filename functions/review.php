@@ -100,8 +100,8 @@ function updateReview($pid, $uid, $review) {
 
     $conn = connection();
 
-    $stmt = $conn->prepare('UPDATE wwi_reviews SET stars = ?, description = ?, updated_at = now() WHERE product_id = ? AND user_id = ?;');
-    $stmt->bind_param('isii', $review['stars'], $review['description'], $pid, $uid);
+    $stmt = $conn->prepare('UPDATE wwi_reviews SET description = ?, updated_at = now() WHERE product_id = ? AND user_id = ?;');
+    $stmt->bind_param('sii', $review['description'], $pid, $uid);
     $stmt->execute();
 
     if ($stmt->affected_rows < 1)
@@ -139,6 +139,18 @@ function getReviewByProductID($pid) {
 
     if (empty($result))
         return false;
+
+    // Move a users review to the top if user is logged in and has a review
+    if (isset($_SESSION['user_id'])) {
+        $temp = [];
+        foreach ($result as $key => $value) {
+            if ($value['user_id'] === $_SESSION['user_id']) {
+                $temp[0] = $value;
+                unset($result[$key]);
+                $result = array_merge($temp, $result);
+            }
+        }
+    }
 
     return $result;
 }
