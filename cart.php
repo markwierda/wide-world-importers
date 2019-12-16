@@ -67,7 +67,7 @@ if (isset($_GET['delete'])) {
                 <b>Total price excl</b><br />&euro;<?php echo $endPrice['EXCL']; ?><br />
                 <b>Tax</b><br />&euro;<?php echo $endPrice['TAX']; ?><br />
                 <b>Total price incl</b><br />&euro;<?php echo $endPrice['INCL']; ?><br /><br />
-                <a href="#" class="btn btn-success">Checkout</a>
+                <a href="checkout.php" class="btn btn-success">Checkout</a>
             </div>
         </div>
         <?php else: ?>
