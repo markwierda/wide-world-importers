@@ -14,7 +14,6 @@ CREATE TABLE `wwi_users` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SELECT * FROM wideworldimporters.wwi_contact;
 
 CREATE TABLE `wwi_reviews` (
   `product_id` int(11) NOT NULL,
