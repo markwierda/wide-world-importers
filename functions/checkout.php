@@ -12,12 +12,12 @@ function makePayment($cart) {
         $mollie->setApiKey($settings['mollieApiKey']);
 
         $payment = $mollie->payments->create([
-            "amount" => [
-                "currency" => "EUR",
-                "value" => "10.00"
+            'amount' => [
+                'currency' => 'EUR',
+                "value" => '10.00'
             ],
-            "description" => "My first API payment",
-            "redirectUrl" => "https://' . $_SERVER['HTTP_HOST'] . '/checkout?id=1"
+            'description' => 'My first API payment',
+            'redirectUrl' => 'https://' . $_SERVER['HTTP_HOST'] . '/checkout?id=1'
         ]);
 
         var_dump($payment);
