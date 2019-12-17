@@ -17,7 +17,7 @@ function makePayment($cart) {
                 "value" => "10.00"
             ],
             "description" => "My first API payment",
-            "redirectUrl" => "http://localhost/checkout?id=1"
+            "redirectUrl" => "https://' . $_SERVER['HTTP_HOST'] . '/checkout?id=1"
         ]);
 
         var_dump($payment);
