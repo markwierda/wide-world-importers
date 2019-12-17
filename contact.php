@@ -8,8 +8,12 @@ if ($_POST) {
     if ($response && is_array($response)) {
         $errors = $response;
     } else {
-        $_SESSION['ALERT_SUCCESS'] = 'Your message has been successfully delivered to the supplier.';
-        header('Location: index.php');
+        if (!is_null(pushDatabase($_POST))) {
+            $_SESSION['ALERT_SUCCESS'] = 'Your message has been successfully delivered to the supplier.';
+            header('Location: index.php');
+        } else {
+            $errors = ['Your message could not be delivered to the supplier, try again later.'];
+        }
     }
 }
 
