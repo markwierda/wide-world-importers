@@ -3,11 +3,35 @@
 $root = str_replace('functions', '', __DIR__);
 
 require_once $root . './database/connection.php';
+require_once './functions/recaptcha.php';
+require_once './functions/sessions.php';
 
-function validateContact($form)
-{
-    if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL))
-        $errors['email'] = 'The specified <b>e-mail address</b> is not a valid e-mail address, please try again.';
+function validateContact($form) {
+    $errors = [];
+
+    if (isValidRecaptchaResponse($form['g-recaptcha-response'])) {
+        foreach ($form as $key => $value) {
+            // Check empty values
+            if (empty($value)) {
+                $key = ucwords(str_replace('_', ' ', $key));
+                $errors[$key] = 'The <b>' . $key . '</b> field cannot be empty, please try again.';
+            }
+
+            // Check if values not longer than 45 characters
+            if (strlen($value) > 400 && $key !== 'g-recaptcha-response') {
+                $errors[$key] = 'The <b>' . $key . '</b> field cannot be longer than 400 characters, please try again.';
+            }
+        }
+
+        // Return all errors
+        if (!empty($errors))
+            return $errors;
+        return true;
+    }
+
+    $errors['recaptcha'] = '<b>ReCAPTCHA</b> verification failed, please try again.';
+
+    return $errors;
 }
 
 // supplier database
@@ -22,6 +46,17 @@ function getSuppliers() {
     return $result;
 }
 
+function PushDatabase($form){
+    if (!validateSession())
+        return null;
+    $conn = connection();
+    $stmt = $conn->prepare(
+        "INSERT INTO wwi_contact('user_id', 'supplier_id', 'message') values (? ,? ,?)");
+    $stmt->bind_param('iis', $_SESSION['user_id'], $form['supplier'], $form['message']);
+    $stmt->execute();
+    
+
+}
 
 
 

@@ -1,8 +1,17 @@
 <?php
-
 require_once './functions/contact.php';
-
 $suppliers = getSuppliers();
+
+if ($_POST) {
+    $response = validateContact($_POST);
+
+    if ($response && is_array($response)) {
+        $errors = $response;
+    } else {
+        $_SESSION['ALERT_SUCCESS'] = 'Your message has been successfully delivered to the supplier.';
+        header('Location: index.php');
+    }
+}
 
 ?>
 <?php require_once './resources/layouts/header.php'; ?>
@@ -14,6 +23,14 @@ $suppliers = getSuppliers();
             <div class="col-lg-8">
 
                 <h1 class="display-4 my-4">Contact</h1>
+
+                <?php if (isset($errors) && is_array($errors)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php foreach ($errors as $error): ?>
+                            <span><?php echo $error; ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif?>
 
                 <?php if (!isset($_SESSION['user_id'])): ?>
                 <h5>Login to ask a question</h5>
@@ -30,11 +47,11 @@ $suppliers = getSuppliers();
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 <?php else: ?>
-                <div method="POST" action="contact.php">
+                <form method="POST" action="contact.php">
                     <div class="dropdown">
                         <label for="supplier">Supplier</label>
-                        <select id="supplier" class="form-control">
-                            <option selected>-</option>
+                        <select id="supplier" name="supplier" class="form-control" required>
+                            <option value="" disabled selected>-</option>
                             <?php foreach ($suppliers as $supplier): ?>
                             <option value="<?php echo $supplier['SupplierID']; ?>"><?php echo $supplier['SupplierName']; ?></option>
                             <?php endforeach; ?>
@@ -44,7 +61,7 @@ $suppliers = getSuppliers();
                         <div class="col-md-12">
                             <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="450"></textarea>
+                            <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="400"></textarea>
                             </div>
                         </div>
                     </div>
@@ -54,7 +71,7 @@ $suppliers = getSuppliers();
                 <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
                 <?php endif; ?>
-            </div>
+            </form>
         </div>
 </main>
 
