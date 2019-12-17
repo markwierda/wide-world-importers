@@ -3,21 +3,25 @@
 require_once './vendor/autoload.php';
 
 function makePayment($cart) {
-    $root = str_replace('functions', '', __DIR__);
+    try {
+        $root = str_replace('functions', '', __DIR__);
 
-    $settings = parse_ini_file($root . 'credentials.ini' , true);
+        $settings = parse_ini_file($root . 'credentials.ini' , true);
 
-    $mollie = new \Mollie\Api\MollieApiClient();
-    $mollie->setApiKey($settings['mollieApiKey']);
+        $mollie = new \Mollie\Api\MollieApiClient();
+        $mollie->setApiKey($settings['mollieApiKey']);
 
-    $payment = $mollie->payments->create([
-        "amount" => [
-            "currency" => "EUR",
-            "value" => "10.00"
-        ],
-        "description" => "My first API payment",
-        "redirectUrl" => "http://localhost/checkout?id=1"
-    ]);
+        $payment = $mollie->payments->create([
+            "amount" => [
+                "currency" => "EUR",
+                "value" => "10.00"
+            ],
+            "description" => "My first API payment",
+            "redirectUrl" => "http://localhost/checkout?id=1"
+        ]);
 
-    var_dump($payment);
+        var_dump($payment);
+    } catch(Exception $e) {
+        die($e->getMessage());
+    }
 }
