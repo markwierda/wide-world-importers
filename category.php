@@ -57,7 +57,7 @@ $categories = getCategories();
                         <?php foreach ($products as $product): ?>
                             <div class="col-lg-3 col-md-4 mb-3 my-4">
                                 <div class="card h-100">
-                                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                    <a href="#"><img class="card-img-top" src="https://placehold.it/700x400" alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
                                             <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>

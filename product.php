@@ -62,7 +62,7 @@ if (isset($_SESSION['user_id']))
             <?php endif?>
 
             <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="<?php echo $product['StockItemName']; ?>">
+                <img class="card-img-top img-fluid" src="https://placehold.it/900x400" alt="<?php echo $product['StockItemName']; ?>">
                 <div class="card-body row">
                     <div class="col-lg-9 col-md">
                         <h3 class="card-title"><?php echo $product['StockItemName']; ?></h3>
