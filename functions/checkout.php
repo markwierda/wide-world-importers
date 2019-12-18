@@ -30,7 +30,7 @@ function makePayment($cart) {
                 "value" => $endPrice['INCL']
             ],
             'description' => 'Payment for order: ' . $id,
-            'redirectUrl' => 'https://' . $_SERVER['HTTP_HOST'] . '/checkout.php?order=' . $id,
+            'redirectUrl' => 'https://' . $_SERVER['HTTP_HOST'] . '/order.php?id=' . $id,
             'webhookUrl' => 'https://' . $_SERVER['HTTP_HOST'] . '/webhook/mollie.php'
         ]);
 

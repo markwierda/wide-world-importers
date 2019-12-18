@@ -11,7 +11,4 @@ $endPrice = calculateEndPrice($cart);
 if (empty($cart))
     redirect('cart.php');
 
-if (isset($_GET['order']))
-    header('Location: order.php?id=' . $_GET['order']);
-
 makePayment($cart);
