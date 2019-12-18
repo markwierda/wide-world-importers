@@ -51,3 +51,38 @@ function createOrderlines($id, $cart) {
 
     return true;
 }
+
+function setOrderPaymentID($payment_id, $id) {
+    $conn = connection();
+
+    $stmt = $conn->prepare('UPDATE wwi_orders SET payment_id = ? WHERE id = ?;');
+    $stmt->bind_param('si', $payment_id, $id);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 1)
+        return false;
+
+    $stmt->close();
+    $conn->close();
+
+    return true;
+}
+
+function updateOrder($id, $status) {
+    $conn = connection();
+
+    $stmt = $conn->prepare('UPDATE wwi_orders SET status = ? WHERE payment_id = ?;');
+    $stmt->bind_param('si', $status, $id);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 1)
+        return false;
+
+    var_dump($stmt);
+    exit;
+
+    $stmt->close();
+    $conn->close();
+
+    return true;
+}

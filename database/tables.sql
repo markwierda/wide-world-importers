@@ -45,7 +45,7 @@ CREATE TABLE `wwi_contact` (
 CREATE TABLE `wwi_orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `payment_id` varchar(45) DEFAULT NULL,
+  `payment_id` varchar(255) NOT NULL,
   `status` varchar(8) NOT NULL,
   `ordered_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -53,7 +53,7 @@ CREATE TABLE `wwi_orders` (
   KEY `user_id_idx_orders` (`user_id`),
   KEY `user_id_orders` (`user_id`),
   CONSTRAINT `user_id_orders` FOREIGN KEY (`user_id`) REFERENCES `wwi_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `wwi_orderlines` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -66,4 +66,4 @@ CREATE TABLE `wwi_orderlines` (
   KEY `pid_idx` (`pid`),
   CONSTRAINT `StockItemID` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pid` FOREIGN KEY (`pid`) REFERENCES `wwi_orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

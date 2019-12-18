@@ -35,6 +35,10 @@ function makePayment($cart) {
             'webhookUrl' => 'https://' . $_SERVER['HTTP_HOST'] . '/webhook/mollie.php'
         ]);
 
+        setOrderPaymentID($payment->id, $id);
+
+        $payment->status;
+
         header('Location: ' . $payment->getCheckoutUrl(), true, 303);
     } catch (\Mollie\Api\Exceptions\ApiException $e) {
         echo "API call failed: " . htmlspecialchars($e->getMessage());
