@@ -45,7 +45,7 @@ CREATE TABLE `wwi_contact` (
 CREATE TABLE `wwi_orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `payment_id` varchar(255) NOT NULL,
+  `payment_id` varchar(255) DEFAULT NULL,
   `status` varchar(8) NOT NULL,
   `ordered_at` datetime NOT NULL,
   PRIMARY KEY (`id`),

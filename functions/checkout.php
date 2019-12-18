@@ -1,13 +1,12 @@
 <?php
 
-require_once './vendor/autoload.php';
-require_once 'order.php';
+$root = str_replace('functions', '', __DIR__);
+
+require_once $root . 'vendor/autoload.php';
+require_once $root . 'functions/order.php';
 
 if (!isset($_SESSION['user_id']))
     header('Location: cart.php');
-
-if (isset($_GET['order']))
-    die(getOrderByID($_GET['order']));
 
 function makePayment($cart) {
     try {
@@ -36,8 +35,6 @@ function makePayment($cart) {
         ]);
 
         setOrderPaymentID($payment->id, $id);
-
-        $payment->status;
 
         header('Location: ' . $payment->getCheckoutUrl(), true, 303);
     } catch (\Mollie\Api\Exceptions\ApiException $e) {

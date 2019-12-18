@@ -5,7 +5,9 @@ require_once '../functions/order.php';
 
 try {
     $root = str_replace('webhook', '', __DIR__);
+
     $settings = parse_ini_file($root . 'credentials.ini' , true);
+
     $mollie = new \Mollie\Api\MollieApiClient();
     $mollie->setApiKey($settings['mollieApiKey']);
 

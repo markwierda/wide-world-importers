@@ -1,5 +1,9 @@
 <?php
 
+$root = str_replace('functions', '', __DIR__);
+
+require_once $root . 'database/connection.php';
+
 function getOrderByID($id) {
     return $id;
 }
@@ -72,7 +76,7 @@ function updateOrder($id, $status) {
     $conn = connection();
 
     $stmt = $conn->prepare('UPDATE wwi_orders SET status = ? WHERE payment_id = ?;');
-    $stmt->bind_param('si', $status, $id);
+    $stmt->bind_param('ss', $status, $id);
     $stmt->execute();
 
     if ($stmt->affected_rows < 1)
