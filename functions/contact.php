@@ -10,6 +10,10 @@ function validateContact($form) {
     $errors = [];
 
     if (isValidRecaptchaResponse($form['g-recaptcha-response'])) {
+        if (!isset($_POST['supplier'])) {
+            $errors['supplier'] = 'The <b>supplier</b> field cannot be empty, please try again.';
+        }
+
         foreach ($form as $key => $value) {
             // Check empty values
             if (empty($value)) {
@@ -26,6 +30,7 @@ function validateContact($form) {
         // Return all errors
         if (!empty($errors))
             return $errors;
+
         return true;
     }
 
@@ -50,9 +55,11 @@ function pushDatabase($form){
     if (!validateSession())
         return null;
     $conn = connection();
-    $stmt = $conn->prepare("INSERT INTO wwi_contact(user_id, supplier_id, message) VALUES(? ,? ,?)");
+    $stmt = $conn->prepare("INSERT INTO wwi_contact(uid, supplier_id, message) VALUES(? ,? ,?)");
     $stmt->bind_param('iis', $_SESSION['user_id'], intval($form['supplier']), $form['message']);
     $stmt->execute();
+
+    $conn->close();
     if ($stmt->errno > 0) {
         return null;
     }
