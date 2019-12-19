@@ -10,7 +10,30 @@ function highestPrice(){
     $query = "SELECT * from stockitems ORDER BY RecommendedRetailPrice DESC;";
 }
 
-function getProducts() {
+function getProducts($search, $size, $brand, $colour, $price) {
+    $conn = connection();
+    $search = "%{$search}%";
+    $query = "SELECT * FROM stockitems WHERE (StockItemName LIKE ? OR MarketingComments LIKE ?) AND
+stockitems.Size = IF((SELECT IFNULL(NULLIF(?, ''), '')) IS NOT NULL, ?,  stockitems.Size) AND
+stockitems.Brand = IF((SELECT IFNULL(NULLIF(?, ''), '')) IS NOT NULL, ?,  stockitems.Brand) AND
+stockitems.ColorID = IF((SELECT IFNULL(NULLIF((SELECT ColorID FROM colors WHERE ColorName = ?), ''), '')) IS NOT NULL, (SELECT ColorID FROM colors WHERE ColorName = ?),  stockitems.ColorID);";
+    if (isset($price) && !empty($price)) {
+        if ($price === 'high-low') {
+            $query .= " ORDER BY stockitems.RecommendedRetailPrice DESC";
+        } else if ($price === 'low-high') {
+            $query .= " ORDER BY stockitems.RecommendedRetailPrice ASC";
+        }
+    }
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ssssssss',$search, $search, $size, $size, $brand, $brand, $colour, $colour);
+    $stmt->execute();
+
+    if ($stmt->errno > 0)
+        return null;
+    $result = $stmt->get_result();
+    $conn->close();
+
+    return $result;
 
 }
 

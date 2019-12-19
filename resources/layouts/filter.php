@@ -14,7 +14,7 @@ $getParams .= (isset($_GET['amount'])) ? "&amount=".$_GET['amount'] : '';
 $getParams .= (isset($_GET['brand'])) ? "&brand=".$_GET['brand'] : '';
 $getParams .= (isset($_GET['size'])) ? "&size=".$_GET['size'] : '';
 $getParams .= (isset($_GET['colour'])) ? "&colour=".$_GET['colour'] : '';
-print($getParams);
+$getParams = htmlentities($getParams);
 ?>
 <div class="col-6">
     <h4>Filter</h4>

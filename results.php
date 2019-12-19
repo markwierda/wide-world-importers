@@ -5,9 +5,9 @@ require_once './functions/redirect.php';
 require_once './functions/review.php';
 
 try {
-    $searchquery = isset($_GET['s']) ? strval($_GET['s']) : '';
-    $page = isset($_GET['p']) ? intval($_GET['p']) : '';
-    $amount = isset($_GET['a']) ? intval($_GET['a']) : 24;
+    $searchquery = isset($_GET['search']) ? strval($_GET['search']) : '';
+    $page = isset($_GET['page']) ? intval($_GET['page']) : '';
+    $amount = isset($_GET['amount']) ? intval($_GET['amount']) : 24;
 } catch (Exception $e) {redirect("index.php");}
 
 if ($searchquery === '' || $page === '') {
@@ -39,6 +39,9 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
     <div class="container my-5">
         <?php require_once './resources/layouts/search.php';?>
         <h1>Showing items <?php if ($itemCount <= $amount) {print("{$page} - {$itemCount}");} else {if ($page*$amount < $itemCount) {print(intval($page)*$amount-($amount-1) . " - " . intval($page)*$amount);} else {print(intval($page)*$amount-($amount-1) . " - {$itemCount}");}}?> of <?=$itemCount?></h1>
+        <div class="row my-5">
+            <?php require_once './resources/layouts/filter.php'; ?>
+        </div>
         <div class="row">
             <?php ?>
             <?php while ($row = $results->fetch_assoc()): ?>
@@ -81,7 +84,7 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
         <div class="row">
             <?php if ($page > 1): ?>
                 <div class="col-lg-6 col-sm-6 text-center">
-                    <a href="<?="results.php?s={$searchquery}&a={$amount}&p=".($page-1)?>"><button type="button" class="btn btn-primary w-75 my-4 mb-3 p-3" id="productNav">Previous page</button></a>
+                    <a href="<?=$getParams."&page=".($page-1);?>"><button type="button" class="btn btn-primary w-75 my-4 mb-3 p-3" id="productNav">Previous page</button></a>
                 </div>
             <?php else:?>
                 <div class="col-lg-6 col-sm-6 text-center">
@@ -92,7 +95,7 @@ if (intval($page)*$amount-($amount-1) > $itemCount) {
 
             <?php if ($itemCount > $amount*$page): ?>
                 <div class="col-lg-6 col-sm-6 text-center">
-                    <a href="<?="results.php?s={$searchquery}&a={$amount}&p=".($page+1)?>"><button type="button" class="btn btn-primary w-75 my-4 mb-4 p-3" id="productNav">Next page</button></a>
+                    <a href="<?=$getParams."&page=".($page+1);?>"><button type="button" class="btn btn-primary w-75 my-4 mb-4 p-3" id="productNav">Next page</button></a>
                 </div>
             <?php else: ?>
                 <div class="col-lg-6 col-sm-6 text-center">

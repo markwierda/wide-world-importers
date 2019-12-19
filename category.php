@@ -84,7 +84,7 @@ $categories = getCategories();
                 <div class="row">
                     <?php if ($page > 1): ?>
                         <div class="col-lg-6 col-sm-6 text-center">
-                            <a href="<?="category.php?name={$name}&amount={$amount}&page=".($page-1)?>"><button type="button" class="btn btn-primary w-75 my-4 mb-3 p-3" id="productNav">Previous page</button></a>
+                            <a href="<?=$getParams."&page=".($page-1)?>"><button type="button" class="btn btn-primary w-75 my-4 mb-3 p-3" id="productNav">Previous page</button></a>
                         </div>
                     <?php else:?>
                         <div class="col-lg-6 col-sm-6 text-center">
@@ -95,7 +95,7 @@ $categories = getCategories();
 
                     <?php if (getProductsByCategory_Count($_GET['name'])->fetch_assoc()['itemCount'] > $amount*$page): ?>
                         <div class="col-lg-6 col-sm-6 text-center">
-                            <a href="<?="category.php?name={$name}&amount={$amount}&page=".($page+1)?>"><button type="button" class="btn btn-primary w-75 my-4 mb-4 p-3" id="productNav">Next page</button></a>
+                            <a href="<?=$getParams."&page=".($page+1)?>"><button type="button" class="btn btn-primary w-75 my-4 mb-4 p-3" id="productNav">Next page</button></a>
                         </div>
                     <?php else: ?>
                         <div class="col-lg-6 col-sm-6 text-center">
