@@ -58,9 +58,9 @@ if (!$order)
                             <?php echo $item['StockItemName']; ?>
                         </a>
                     </td>
-                    <td>&euro;<?php echo $item['price']; ?></td>
-                    <td><?php echo $item['quantity']; ?></td>
-                    <td>&euro;<?php echo $item['total']; ?></td>
+                    <td>&euro;<?php echo number_format($item['price'], 2, ',', '.'); ?></td>
+                    <td><?php echo number_format($item['quantity'], 0, ',', '.'); ?></td>
+                    <td>&euro;<?php echo number_format($item['total'], 2, ',', '.'); ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
