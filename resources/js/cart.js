@@ -40,7 +40,7 @@ function updateCart(element) {
             $('#endPrice').html('<b>Total price excl</b><br />&euro;' + endPrice['EXCL'] + '<br />' +
                 '<b>Tax</b><br />&euro;' + endPrice['TAX'] + '<br />\n' +
                 '<b>Total price incl</b><br />&euro;' + endPrice['INCL'] + '<br /><br />\n' +
-                '<a href="#" class="btn btn-success">Checkout</a>');
+                '<a href="checkout.php" class="btn btn-success">Checkout</a>');
         }
     });
 }

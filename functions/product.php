@@ -24,7 +24,7 @@ function getProductByID($id) {
     $conn = connection();
 
     $stmt = $conn->prepare(
-        'SELECT I.StockItemID, I.StockItemName, i.RecommendedRetailPrice, I.MarketingComments, H.QuantityOnHand FROM stockitems I
+        'SELECT I.StockItemID, I.StockItemName, I.RecommendedRetailPrice, I.MarketingComments, H.QuantityOnHand FROM stockitems I
                 JOIN stockitemholdings H ON H.StockItemID = I.StockItemID
                 WHERE I.StockItemID = ?;');
     $stmt->bind_param('s', $id);

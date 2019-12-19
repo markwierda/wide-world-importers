@@ -1,2 +1,4 @@
 .idea
-database/credentials.ini
+credentials.ini
+vendor/
+composer.lock

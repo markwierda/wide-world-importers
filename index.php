@@ -39,13 +39,13 @@ $products = getHomepageProducts();
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="First slide"  ">
+                        <img class="d-block img-fluid" src="https://placehold.it/1200x450" alt="First slide"  ">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="Second slide">
+                        <img class="d-block img-fluid" src="https://placehold.it/1200x450" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="Third slide">
+                        <img class="d-block img-fluid" src="https://placehold.it/1200x450" alt="Third slide">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -63,7 +63,7 @@ $products = getHomepageProducts();
                 <?php foreach ($products as $product): ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="https://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
