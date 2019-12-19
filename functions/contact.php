@@ -10,6 +10,10 @@ function validateContact($form) {
     $errors = [];
 
     if (isValidRecaptchaResponse($form['g-recaptcha-response'])) {
+        if (!isset($_POST['supplier'])) {
+            $errors['supplier'] = 'The <b>supplier</b> field cannot be empty, please try again.';
+        }
+
         foreach ($form as $key => $value) {
             // Check empty values
             if (empty($value)) {
@@ -26,6 +30,7 @@ function validateContact($form) {
         // Return all errors
         if (!empty($errors))
             return $errors;
+
         return true;
     }
 
