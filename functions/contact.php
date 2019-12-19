@@ -53,6 +53,8 @@ function pushDatabase($form){
     $stmt = $conn->prepare("INSERT INTO wwi_contact(uid, supplier_id, message) VALUES(? ,? ,?)");
     $stmt->bind_param('iis', $_SESSION['user_id'], intval($form['supplier']), $form['message']);
     $stmt->execute();
+
+    $conn->close();
     if ($stmt->errno > 0) {
         return null;
     }
