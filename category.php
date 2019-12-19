@@ -35,19 +35,7 @@ $categories = getCategories();
             <div class="col-lg-12 text-center">
                 <h1 class="my-4"><?php echo $_GET['name']; ?></h1>
             </div>
-            <div class="col-lg-12">
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Amount
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a href="category.php?name=<?php echo $_GET['name'];?>&amount=25<?php echo (isset($_GET['page'])) ? "&page=".$_GET['page'] : '';?>" class="d-block">25</a>
-                        <a href="category.php?name=<?php echo $_GET['name'];?>&amount=50<?php echo (isset($_GET['page'])) ? "&page=".$_GET['page'] : '';?>" class="d-block">50</a>
-                        <a href="category.php?name=<?php echo $_GET['name'];?>&amount=100<?php echo (isset($_GET['page'])) ? "&page=".$_GET['page'] : '';?>" class="d-block">100</a>
-                    </div>
-                </div>
-            </div>
-
+            <?php require_once './resources/layouts/filter.php'; ?>
             <div class="col-lg-12">
 
                 <div class="row">
