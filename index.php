@@ -1,6 +1,7 @@
 <?php
 require_once './functions/product.php';
 require_once './functions/review.php';
+require_once './functions/discount.php';
 
 $products = getHomepageProducts();
 
@@ -60,7 +61,7 @@ $products = getHomepageProducts();
 
             <div class="row">
 
-                <?php foreach ($products as $product): ?>
+            <?php foreach ($products as $product): ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="https://placehold.it/700x400" alt=""></a>
@@ -68,7 +69,27 @@ $products = getHomepageProducts();
                             <h4 class="card-title">
                                 <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
                             </h4>
-                            <h5>&euro;<?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h5>
+                            <h5>
+                                <?php
+                                $discount = getDiscount($product['StockItemID']);
+                                if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+                                    $price = $product['RecommendedRetailPrice'];
+                                    print("FROM <s class='text-danger'>&euro;" . number_format($price , 2, ',', '.') . "</s> FOR ");
+
+                                    if (!is_null($discount['DiscountPercentage'])) {
+                                        $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+                                    }
+                                    if (!is_null($discount['DiscountAmount'])) {
+                                        $price = $price - $discount['DiscountAmount'];
+                                    }
+                                    $price = number_format($price, 2, ',', '.');
+                                    print("&euro;" . $price);
+
+                                } else {
+                                    print("&euro;" . number_format($product['RecommendedRetailPrice'], 2, ',', '.'));
+                                }
+                                ?>
+                            </h5>
                             <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                         </div>
                         <div class="card-footer">
