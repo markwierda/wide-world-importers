@@ -3,14 +3,35 @@
 $root = str_replace('functions', '', __DIR__);
 
 require_once $root . 'database/connection.php';
+require_once $root . 'functions/product.php';
 
 function getOrderByID($id) {
-    return $id;
+    $conn = connection();
+
+    $stmt = $conn->prepare(
+        'SELECT O.id, O.user_id, O.payment_id, O.status, I.StockItemName, L.price, L.quantity FROM wwi_orders O
+                JOIN wwi_orderlines L ON L.pid = O.id
+                JOIN stockitems I ON I.StockItemID = L.StockItemID
+                WHERE O.id = ?;');
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    if (empty($result))
+        return false;
+
+    foreach ($result as $key => $item) {
+        $result[$key]['total'] = $item['price'] * $item['quantity'];
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $result;
 }
 
 function createOrder($uid, $cart) {
-    $uid = htmlentities($uid);
-
     $conn = connection();
 
     $stmt = $conn->prepare('INSERT INTO wwi_orders(user_id, status, ordered_at) VALUES(?, \'open\', now());');
