@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS wwi_orderlines;
+DROP TABLE IF EXISTS wwi_orders;
 DROP TABLE IF EXISTS wwi_contact;
 DROP TABLE IF EXISTS wwi_reviews;
 DROP TABLE IF EXISTS wwi_users;
@@ -30,9 +32,38 @@ CREATE TABLE `wwi_reviews` (
 
 CREATE TABLE `wwi_contact` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
   `message` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`)
+  KEY `user_id_idx` (`uid`),
+  KEY `supplier_id_idx` (`supplier_id`),
+  CONSTRAINT `supplier_id` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`SupplierID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `wwi_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `wwi_orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `payment_id` varchar(255) DEFAULT NULL,
+  `status` varchar(8) NOT NULL,
+  `ordered_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id_idx` (`user_id`),
+  KEY `user_id_idx_orders` (`user_id`),
+  KEY `user_id_orders` (`user_id`),
+  CONSTRAINT `user_id_orders` FOREIGN KEY (`user_id`) REFERENCES `wwi_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `wwi_orderlines` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pid` int(11) NOT NULL,
+  `StockItemID` int(11) NOT NULL,
+  `price` decimal(18,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `StockItemID_idx` (`StockItemID`),
+  KEY `pid_idx` (`pid`),
+  CONSTRAINT `StockItemID` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `pid` FOREIGN KEY (`pid`) REFERENCES `wwi_orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
