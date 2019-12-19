@@ -10,6 +10,10 @@ function highestPrice(){
     $query = "SELECT * from stockitems ORDER BY RecommendedRetailPrice DESC;";
 }
 
+function getProducts() {
+
+}
+
 function getColours() {
     $conn = connection();
     $query = "SELECT DISTINCT ColorName FROM colors JOIN stockitems ON stockitems.ColorID = colors.ColorID;";

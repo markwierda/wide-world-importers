@@ -1,6 +1,13 @@
 <?php require_once './functions/filter.php'; ?>
 <?php
-$getParams = 'category.php?name=' . $_GET['name'];
+$uri = str_replace('/wide-world-importers/', '', $_SERVER['REQUEST_URI']);
+$uri = explode('?', $uri)[0];
+if (isset($uri) && $uri[0] === '/') {
+    $uri = substr_replace($uri, '', 0, 1);
+}
+
+$getParams =  ($uri === 'category.php') ? $uri . '?name=' . $_GET['name'] : $uri;
+$getParams .= ($uri === 'results.php') ? "?search=".$_GET['search'] : '';
 $getParams .= (isset($_GET['page'])) ? "&page=".$_GET['page'] : '';
 $getParams .= (isset($_GET['price'])) ? "&price=".$_GET['price'] : '';
 $getParams .= (isset($_GET['amount'])) ? "&amount=".$_GET['amount'] : '';
