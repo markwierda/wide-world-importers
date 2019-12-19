@@ -50,7 +50,7 @@ function pushDatabase($form){
     if (!validateSession())
         return null;
     $conn = connection();
-    $stmt = $conn->prepare("INSERT INTO wwi_contact(user_id, supplier_id, message) VALUES(? ,? ,?)");
+    $stmt = $conn->prepare("INSERT INTO wwi_contact(uid, supplier_id, message) VALUES(? ,? ,?)");
     $stmt->bind_param('iis', $_SESSION['user_id'], intval($form['supplier']), $form['message']);
     $stmt->execute();
     if ($stmt->errno > 0) {
