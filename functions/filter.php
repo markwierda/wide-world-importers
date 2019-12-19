@@ -10,6 +10,7 @@ function highestPrice(){
     $query = "SELECT * from stockitems ORDER BY RecommendedRetailPrice DESC;";
 }
 
+// USAGE getproducts('hallo', null, null, 'Black', 'high-low');
 function getProducts($search, $size, $brand, $colour, $price) {
     $conn = connection();
     $search = "%{$search}%";
