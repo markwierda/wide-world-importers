@@ -1,3 +1,4 @@
 .idea
 credentials.ini
 vendor/
+composer.lock
