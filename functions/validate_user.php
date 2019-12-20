@@ -54,6 +54,11 @@ function get_uid($email) {
 function create_User($user) {
     global $db_table;
 
+    // Convert HTML characters to text
+    foreach ($user as $key => $value) {
+        $user[$key] = htmlentities($value);
+    }
+
     $password = password_hash($user['password'], PASSWORD_DEFAULT);
 
     try {

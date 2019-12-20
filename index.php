@@ -1,5 +1,7 @@
 <?php
 require_once './functions/product.php';
+require_once './functions/review.php';
+require_once './functions/discount.php';
 
 $products = getHomepageProducts();
 
@@ -38,13 +40,13 @@ $products = getHomepageProducts();
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="First slide"  ">
+                        <img class="d-block img-fluid" src="https://placehold.it/1200x450" alt="First slide"  ">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="Second slide">
+                        <img class="d-block img-fluid" src="https://placehold.it/1200x450" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/1200x450" alt="Third slide">
+                        <img class="d-block img-fluid" src="https://placehold.it/1200x450" alt="Third slide">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -59,19 +61,39 @@ $products = getHomepageProducts();
 
             <div class="row">
 
-                <?php foreach ($products as $product): ?>
+            <?php foreach ($products as $product): ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="https://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
                             </h4>
-                            <h5>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h5>
+                            <h5>
+                                <?php
+                                $discount = getDiscount($product['StockItemID']);
+                                if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+                                    $price = $product['RecommendedRetailPrice'];
+                                    print("FROM <s class='text-danger'>&euro;" . number_format($price , 2, ',', '.') . "</s> FOR ");
+
+                                    if (!is_null($discount['DiscountPercentage'])) {
+                                        $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+                                    }
+                                    if (!is_null($discount['DiscountAmount'])) {
+                                        $price = $price - $discount['DiscountAmount'];
+                                    }
+                                    $price = number_format($price, 2, ',', '.');
+                                    print("&euro;" . $price);
+
+                                } else {
+                                    print("&euro;" . number_format($product['RecommendedRetailPrice'], 2, ',', '.'));
+                                }
+                                ?>
+                            </h5>
                             <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            <span class="text-muted"><?php echo getAverageStars($product['StockItemID']); ?></span>
                         </div>
                     </div>
                 </div>

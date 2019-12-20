@@ -2,6 +2,9 @@
 
 require_once './functions/product.php';
 require_once './functions/category.php';
+require_once './functions/review.php';
+require_once './functions/discount.php';
+
 if (isset($_GET['amount']) && isset($_GET['page']))
     $products = getProductsByCategory($_GET['name'], $_GET['amount'], $_GET['page']);
 elseif(isset($_GET['amount']) && !isset($_GET['page']))
@@ -55,16 +58,33 @@ $categories = getCategories();
                         <?php foreach ($products as $product): ?>
                             <div class="col-lg-3 col-md-4 mb-3 my-4">
                                 <div class="card h-100">
-                                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                    <a href="#"><img class="card-img-top" src="https://placehold.it/700x400" alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
                                             <a href="product.php?id=<?php echo $product['StockItemID']; ?>"><?php echo $product['StockItemName']; ?></a>
                                         </h4>
-                                        <h5>&euro; <?php echo str_replace('.', ',', $product['RecommendedRetailPrice']); ?></h5>
+                                        <h5>
+                                            <?php $retailprice = $product['RecommendedRetailPrice'];
+                                            $discount = getDiscount($product['StockItemID']);
+                                            if (!is_null($discount['DiscountPercentage']) || !is_null($discount['DiscountAmount'])) {
+                                            $price = $retailprice;
+                                            print("FROM <s class='text-danger'>&euro;" . number_format($price , 2, ',', '.') . "</s> FOR ");
+                                            if (!is_null($discount['DiscountPercentage'])) {
+                                            $price = ($price * ((100 - $discount['DiscountPercentage']) / 100));
+                                            }
+                                            if (!is_null($discount['DiscountAmount'])) {
+                                            $price = $price - $discount['DiscountAmount'];
+                                            }
+                                            $retailprice = $price;
+                                            }
+
+                                            echo "&euro;" . number_format($retailprice, 2, ',', '.');
+                                            ?>
+                                        </h5>
                                         <p class="card-text"><?php echo $product['MarketingComments']; ?></p>
                                     </div>
                                     <div class="card-footer">
-                                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        <span class="text-muted"><?php echo getAverageStars($product['StockItemID']); ?></span>
                                     </div>
                                 </div>
                             </div>

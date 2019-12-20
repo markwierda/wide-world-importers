@@ -16,7 +16,7 @@ if ($_POST) {
                 if ($uid !== False) {
                     createSession($uid);
                     $_SESSION['ALERT_SUCCESS'] = 'You have been successfully logged in.';
-                    redirect('index.php');
+                    redirect(isset($_GET['redirect']) ? $_GET['redirect'] :'index.php');
                 }
             } else {
                 //Handle error message?
@@ -29,6 +29,7 @@ if ($_POST) {
 }
 
 require_once './resources/layouts/header.php';
+
 ?>
 
 <main id="login">
