@@ -3,12 +3,14 @@
 require_once './functions/sessions.php';
 require_once './functions/order.php';
 require_once './functions/user.php';
+require_once './functions/cart.php';
 
 if (!isset($_GET['id']))
     header('Location: index.php');
 
 $order = getOrderByID($_GET['id']);
 $user = getUserByID($order[0]['user_id']);
+$endPrice = calculateEndPrice($order);
 
 if (!$order)
     header('Location: index.php');
@@ -19,7 +21,7 @@ if (!$order)
 <main>
     <div class="container my-5">
         <?php if ($order[0]['status'] === 'paid'): ?>
-        <h1>Thank you for your order</h1>
+        <h1>Thank you for your order!</h1>
         <p class="font-italic">Order number: <?php echo $_GET['id']; ?></p>
         <p>Your order will be delivered to your address shortly.</p>
         <p>
@@ -67,6 +69,12 @@ if (!$order)
         </table>
 
         <br />
+
+        <div class="col-md-2" id="endPrice">
+            <b>Total price excl</b><br />&euro;<?php echo $endPrice['EXCL']; ?><br />
+            <b>Tax</b><br />&euro;<?php echo $endPrice['TAX']; ?><br />
+            <b>Total price incl</b><br />&euro;<?php echo $endPrice['INCL']; ?><br /><br />
+        </div>
     </div>
 </main>
 

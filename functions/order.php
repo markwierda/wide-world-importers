@@ -9,7 +9,7 @@ function getOrderByID($id) {
     $conn = connection();
 
     $stmt = $conn->prepare(
-        'SELECT O.id, O.user_id, O.payment_id, O.status, I.StockItemName, L.price, L.quantity FROM wwi_orders O
+        'SELECT O.id, O.user_id, O.payment_id, O.status, L.StockItemID, I.StockItemName, L.price, L.quantity FROM wwi_orders O
                 JOIN wwi_orderlines L ON L.pid = O.id
                 JOIN stockitems I ON I.StockItemID = L.StockItemID
                 WHERE O.id = ?;');
@@ -52,6 +52,8 @@ function createOrder($uid, $cart) {
     $id = $result[0]['LAST_INSERT_ID()'];
 
     createOrderlines($id, $cart);
+
+    unset($_SESSION['CART']);
 
     return $id;
 }
@@ -102,9 +104,6 @@ function updateOrder($id, $status) {
 
     if ($stmt->affected_rows < 1)
         return false;
-
-    var_dump($stmt);
-    exit;
 
     $stmt->close();
     $conn->close();
