@@ -67,3 +67,12 @@ CREATE TABLE `wwi_orderlines` (
   CONSTRAINT `StockItemID` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pid` FOREIGN KEY (`pid`) REFERENCES `wwi_orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `wwi_product_images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `StockItemID` int(11) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `StockItem_Photo_idx` (`StockItemID`),
+  CONSTRAINT `StockItem_Photo` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
