@@ -44,12 +44,21 @@ function search_products_itemCount($search) {
     return null;
 }
 
-function search_products($search, $page, $amount=24) {
+function search_products($search, $page, $amount=24, $filter_array = null) {
     if (!empty($search) && isset($page)) {
-        $conn = connection();
+        if ($filter_array !== null) {
+            $size = $filter_array['size'];
+            $brand = $filter_array['brand'];
+            $colour = $filter_array['colour'];
+            $price = $filter_array['price'];
+            
+        }
+
         if(!is_numeric($amount)) {
             return null;
         }
+
+        $conn = connection();
         $page = (intval($page)-1) * $amount;
 
         if (is_numeric($search)) {

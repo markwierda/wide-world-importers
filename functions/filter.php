@@ -13,6 +13,8 @@ function highestPrice(){
 // USAGE getproducts('hallo', null, null, 'Black', 'high-low');
 function getProducts($search, $size, $brand, $colour, $price) {
     $conn = connection();
+    if ($search === null)
+        return null;
     $search = "%{$search}%";
     $query = "SELECT * FROM stockitems WHERE (StockItemName LIKE ? OR MarketingComments LIKE ?) AND
 stockitems.Size = IF((SELECT IFNULL(NULLIF(?, ''), '')) IS NOT NULL, ?,  stockitems.Size) AND
