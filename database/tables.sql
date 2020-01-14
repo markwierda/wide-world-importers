@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS wwi_orders;
 DROP TABLE IF EXISTS wwi_contact;
 DROP TABLE IF EXISTS wwi_reviews;
 DROP TABLE IF EXISTS wwi_users;
+DROP TABLE IF EXISTS wwi_forum;
 
 CREATE TABLE `wwi_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -76,3 +77,11 @@ CREATE TABLE `wwi_product_images` (
   KEY `StockItem_Photo_idx` (`StockItemID`),
   CONSTRAINT `StockItem_Photo` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+create table wwi_forum (
+id int (11) auto_increment primary key,
+user_id int (11) NOT NULL,
+foto varchar (255), 
+message varchar (255) not null,
+foreign key (user_id) references wwi_users(id)
+)ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
