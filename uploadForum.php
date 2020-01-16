@@ -8,12 +8,10 @@ if (isset($_POST['message'])) {
     // $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['name']);
 
     $text = $_POST['message'];
-    $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['name']);
+    $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['tmp_name']);
 
-    $checkImage_arr = array("jpg","jpeg","png", "gif");
-    if(in_array($saveImage, $checkImage_arr)) {
 
-        if (move_uploaded_file($_FILES['imageToUpload']['name'], $saveImage)) {
+        if (move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $saveImage)) {
             $conn = connection();
 
             $sql = $conn->prepare("INSERT INTO wwi_forum (user_id, foto, message) values (?,?,?)");
@@ -29,12 +27,8 @@ if (isset($_POST['message'])) {
         else {
             print 'There went something wrong please try again';
         }
-    }else{
-        print"The file you uploaded is invalid";
-    }
 }
 else{
     redirect('forum.php');
 }
-
 ?>
