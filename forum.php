@@ -48,15 +48,18 @@ $messageResult = getMessages();
 
 
                     <?php else: ?>
+                    <form method="post" action="forum.php" enctype="multipart/form-data">
                     <div class="card card-outline-secondary my-4">
                         <div class="card-header">
                             Username
                         </div>
                             <div class="form-group">
-                                <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="400"></textarea>
+                                <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="254"></textarea>
                             </div>
+                                 <input type="file" name="image">
+                    </form>
                             <?php require_once 'resources/layouts/recaptcha.php'; ?>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Upload message</button>
                     <?php endif; ?>
                     </div>
                 </div>

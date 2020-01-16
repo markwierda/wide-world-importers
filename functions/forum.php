@@ -16,6 +16,11 @@ function getDatabase() {
 
 }
 
+// Push image to database
+function pushImage(){
+    $conn = connection();
+
+}
 
 // Messages from database
 function getMessages(){
