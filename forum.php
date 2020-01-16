@@ -1,7 +1,6 @@
 <?php require_once './functions/forum.php';
 
 $messageResult = getMessages();
-
 ?>
 
 
@@ -48,20 +47,20 @@ $messageResult = getMessages();
 
 
                     <?php else: ?>
-                    <form method="post" action="forum.php" enctype="multipart/form-data">
-                    <div class="card card-outline-secondary my-4">
-                        <div class="card-header">
+                    <form method="post" action="uploadForum.php" enctype="multipart/form-data">
+                        <div class="card card-outline-secondary my-4">
+                            <div class="card-header">
                             Username
-                        </div>
-                            <div class="form-group">
-                                <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="254"></textarea>
                             </div>
-                                 <input type="file" name="image">
-                    </form>
+                                <div class="form-group">
+                                <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="254"></textarea>
+                                </div>
+                                <input type="file" name="imageToUpload">
                             <?php require_once 'resources/layouts/recaptcha.php'; ?>
                             <button type="submit" class="btn btn-primary">Upload message</button>
+                        </div>
+                    </form>
                     <?php endif; ?>
-                    </div>
                 </div>
             </div>
         </div>
