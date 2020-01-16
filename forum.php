@@ -50,7 +50,7 @@ $messageResult = getMessages();
                     <?php else: ?>
                     <div class="card card-outline-secondary my-4">
                         <div class="card-header">
-                            <?php echo $user['name']; ?>
+                            Username
                         </div>
                             <div class="form-group">
                                 <textarea rows= "5" class="form-control" id="message" name="message" placeholder="Enter your message" required maxlength="400"></textarea>
