@@ -48,6 +48,7 @@ $messageResult = getMessages();
 
 
                     <?php else: ?>
+                    <form method="post" action="forum.php" enctype="multipart/form-data">
                     <div class="card card-outline-secondary my-4">
                         <div class="card-header">
                             Username
@@ -57,6 +58,7 @@ $messageResult = getMessages();
                             </div>
                             <?php require_once 'resources/layouts/recaptcha.php'; ?>
                             <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                     <?php endif; ?>
                     </div>
                 </div>
