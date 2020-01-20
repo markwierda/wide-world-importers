@@ -8,8 +8,9 @@ if (isset($_POST['message'])) {
     // $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['name']);
 
     $text = $_POST['message'];
-    $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['tmp_name']);
-
+    $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['name']);
+    $checkImage = array('image/jpg', 'image/jpe', 'image/jpeg', 'image/png', 'image/gif');
+    if (in_array($_FILES['imageToUpload']['type'], $checkImage)) {
 
         if (move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $saveImage)) {
             $conn = connection();
@@ -23,12 +24,15 @@ if (isset($_POST['message'])) {
             $conn->close();
             $message = 'Message uploaded successfully';
             redirect('forum.php');
-        }
-        else {
+        } else {
             print 'There went something wrong please try again';
         }
+    }else{
+        print "Invalid Format";
+    }
 }
 else{
     redirect('forum.php');
 }
+
 ?>

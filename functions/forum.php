@@ -3,19 +3,7 @@ require_once './database/connection.php';
 require_once './functions/sessions.php';
 require_once './functions/redirect.php';
 
-// Messages database
-function getDatabase() {
-    $conn = connection();
 
-    $result = $conn->query(
-        'select f.id, f.user_id, f.foto, u.name, f.message from wwi_forum f join wwi_users u on f.user_id = u.id;');
-    $result = $result->fetch_all(MYSQLI_ASSOC);
-
-    $conn->close();
-
-    return $result;
-
-}
 // Push image to database
 if (isset($_POST['upload'])) {
     //Path to save image
@@ -53,4 +41,11 @@ function getMessages(){
 
 }
 
+function getUsername(){
+    $conn = connection();
+    $query = 'select u.name, u.id from wwi_users u;';
+    $result = $conn->query($query);
+    $conn->close();
+    return $result;
 
+}
