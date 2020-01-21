@@ -5,7 +5,7 @@ require_once './functions/redirect.php';
 
 
 // Push image to database
-if (isset($_POST['upload'])) {
+/* if (isset($_POST['upload'])) {
     //Path to save image
     $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['name']);
     $text = $_POST['message'];
@@ -28,7 +28,7 @@ if (isset($_POST['upload'])) {
      }
 }
 
-
+*/
 
 // Messages from database
 function getMessages(){
