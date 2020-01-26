@@ -5,7 +5,7 @@ require_once './functions/redirect.php';
 
 
 // Push image to database
-if (isset($_POST['upload'])) {
+/* if (isset($_POST['upload'])) {
     //Path to save image
     $saveImage = "resources/images/" . basename($_FILES['imageToUpload']['name']);
     $text = $_POST['message'];
@@ -28,6 +28,7 @@ if (isset($_POST['upload'])) {
      }
 }
 
+<<<<<<< HEAD
 // Edit posts
 function updateForum($foto,$post, $fid, $uid) {
     // Convert HTML characters to text
@@ -72,6 +73,9 @@ function getforumByID($id) {
 
     return $result[0];
 }
+=======
+*/
+>>>>>>> f274b612c2ee3f22a42d2a2c300852dbaabf181e
 
 // Messages from database
 function getMessages(){
