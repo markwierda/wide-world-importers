@@ -28,7 +28,50 @@ if (isset($_POST['upload'])) {
      }
 }
 
+// Edit posts
+function updateForum($foto,$post, $fid, $uid) {
+    // Convert HTML characters to text
+    foreach ($fid as $key => $value) {
+        $fid[$key] = htmlentities($value);
+    }
 
+    $conn = connection();
+
+    $stmt = $conn->prepare('UPDATE wwi_forum SET foto = ?, message = ? WHERE id = ? AND user_id = ?;');
+    $stmt->bind_param('ssii', $foto, $post, $fid, $uid);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 1)
+        return false;
+
+    return true;
+
+
+}
+// get message
+function getforumByID($id) {
+    if (!$id)
+        die('Message not found');
+
+    $conn = connection();
+
+    $stmt = $conn->prepare(
+        'SELECT *
+                FROM wwi_forum
+                WhERE id = ?;');
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    $stmt->close();
+    $conn->close();
+
+    if (!$result)
+        die('Message not found');
+
+    return $result[0];
+}
 
 // Messages from database
 function getMessages(){
@@ -40,6 +83,20 @@ function getMessages(){
     return $result;
 
 }
+// 1 Message
+function getMessage($id){
+    $conn = connection();
+    $query = 'select f.id, f.user_id, f.foto, u.name, f.message from wwi_forum f join wwi_users u on f.user_id = u.id where f.id = $id;';
+    $result = $conn->query($query);
+    // $result = $query->fetch_assoc();
+    $conn->close();
+    return $result;
+}
+
+
+
+
+
 
 function getUsername(){
     $conn = connection();
